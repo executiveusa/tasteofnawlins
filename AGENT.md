@@ -19,7 +19,7 @@ Taste of Nawlins is a Washington social-purpose company in development. Its spec
 
 Working specific social purpose draft:
 
-> Taste of Nawlins exists to support youth through boxing and mentorship, using food, community events, and business proceeds to create access to positive coaching, discipline, and opportunity.
+> Taste of Nawlins supports youth through boxing and mentorship, using community food events to fund coaching, discipline, and opportunity.
 
 Do not publish legal status as finalized until incorporation is verified.
 
