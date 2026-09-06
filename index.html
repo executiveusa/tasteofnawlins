@@ -6,9 +6,21 @@
     <meta name="theme-color" content="#17120f" />
     <meta name="description" content="Taste of Nawlins — New Orleans food, wherever we pull up. Beignets, chicory coffee, red beans, catering, and Boxing & Beignets." />
     <title>Taste of Nawlins</title>
+    <style>
+      #boot-fallback{min-height:100svh;background:#17110e;color:#fff9ef;display:grid;align-content:end;padding:28px;font-family:Georgia,serif}
+      #boot-fallback small{font:700 11px/1.4 Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;opacity:.72}
+      #boot-fallback h1{max-width:900px;margin:14px 0 18px;font-size:clamp(54px,11vw,140px);line-height:.88;letter-spacing:-.055em;font-weight:500}
+      #boot-fallback p{margin:0;font:400 16px/1.6 Arial,sans-serif;opacity:.8}
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main id="boot-fallback" aria-label="Taste of Nawlins loading fallback">
+        <small>New Orleans · Pacific Northwest</small>
+        <h1>New Orleans food,<br />wherever we pull up.</h1>
+        <p>Beignets · Chicory coffee · Red beans</p>
+      </main>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
