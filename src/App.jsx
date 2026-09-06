@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import './photo-quality.css'
 
 const menu = [
   { name: 'Beignets', note: 'Pillowy squares of fried dough, served hot under a generous snowfall of powdered sugar.', price: 'Coming soon' },
@@ -6,24 +7,26 @@ const menu = [
   { name: 'Red Beans', note: 'Slow-simmered red beans with Creole seasoning, warm spice and a rich, savory finish.', price: 'Coming soon' },
 ]
 
+const photoSet = (name, widths) => widths.map((width) => `/images/${name}-${width}.webp ${width}w`).join(', ')
+
 const storyFrames = [
   {
-    className: 'story-frame-counter',
+    name: 'counter', className: 'story-frame-counter', width: 4504, height: 6006,
     alt: 'Taste of Nawlins food being handed across a neighborhood counter',
     caption: 'Made to travel. Handed over in person.',
   },
   {
-    className: 'story-frame-first-taste',
+    name: 'first-taste', className: 'story-frame-first-taste', width: 3616, height: 5430,
     alt: 'A customer holding a Taste of Nawlins food container',
     caption: 'A little New Orleans, wherever the day takes us.',
   },
   {
-    className: 'story-frame-walmart',
+    name: 'walmart', className: 'story-frame-walmart', width: 2880, height: 5120,
     alt: 'A worker holding a Taste of Nawlins food container',
     caption: 'First tastes become the story.',
   },
   {
-    className: 'story-frame-table',
+    name: 'table', className: 'story-frame-table', width: 6070, height: 4928,
     alt: 'People gathered around a table with Taste of Nawlins food',
     caption: 'The table is the point.',
   },
@@ -75,7 +78,6 @@ export default function App() {
       nodes.forEach((node) => node.classList.add('is-visible'))
       return undefined
     }
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -84,7 +86,6 @@ export default function App() {
         }
       })
     }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' })
-
     nodes.forEach((node) => observer.observe(node))
     return () => observer.disconnect()
   }, [])
@@ -101,7 +102,10 @@ export default function App() {
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-image" role="img" aria-label="Taste of Nawlins community table photograph" />
+        <picture className="hero-image">
+          <source media="(max-width: 760px)" srcSet={photoSet('counter', [720, 1440, 2400])} sizes="100vw" />
+          <img src="/images/table-1920.webp" srcSet={photoSet('table', [1280, 1920, 2880, 3840])} sizes="100vw" width="6070" height="4928" alt="Taste of Nawlins community table" loading="eager" decoding="async" fetchPriority="high" />
+        </picture>
         <div className="hero-copy hero-enter">
           <p className="eyebrow">New Orleans · Pacific Northwest</p>
           <h1>New Orleans food,<br />wherever we pull up.</h1>
@@ -147,7 +151,7 @@ export default function App() {
         <div className="story-gallery">
           {storyFrames.map((frame, index) => (
             <figure className={`story-frame story-frame-${index + 1}`} data-motion="photo" style={{ '--photo': index }} key={frame.className}>
-              <div className={`story-image ${frame.className}`} role="img" aria-label={frame.alt} />
+              <img className={`story-image ${frame.className}`} src={`/images/${frame.name}-1440.webp`} srcSet={photoSet(frame.name, [720, 1440, 2400])} sizes="(max-width: 760px) 100vw, 50vw" width={frame.width} height={frame.height} alt={frame.alt} loading="lazy" decoding="async" />
               <figcaption><span>0{index + 1}</span>{frame.caption}</figcaption>
             </figure>
           ))}
@@ -193,7 +197,6 @@ export default function App() {
           <span className="eyebrow">Stay close</span>
           <span className="footer-location">New Orleans soul · Pacific Northwest</span>
         </div>
-
         <div className="footer-social" aria-label="Social media" data-motion="footer">
           <a className="social-word social-instagram" href="#top" aria-label="Instagram placeholder">
             <span>Instagram</span><b aria-hidden="true">↗</b>
@@ -202,7 +205,6 @@ export default function App() {
             <span>Facebook</span><b aria-hidden="true">↗</b>
           </a>
         </div>
-
         <div className="footer-signoff">
           <div>
             <span className="wordmark footer-mark">Taste of Nawlins</span>
@@ -210,7 +212,6 @@ export default function App() {
           </div>
           <a className="back-top" href="#top">Back to top ↗</a>
         </div>
-
         <div className="footer-meta-row">
           <span>Washington social-purpose company in development</span>
           <span>© 2026 Taste of Nawlins</span>
