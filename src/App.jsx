@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons'
 
@@ -47,6 +48,21 @@ function PreviewForm({ type }) {
 }
 
 export default function App() {
+  useEffect(() => {
+    const nodes = document.querySelectorAll('[data-reveal]')
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' })
+
+    nodes.forEach((node) => observer.observe(node))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <main>
       <header className="site-header">
@@ -60,7 +76,7 @@ export default function App() {
 
       <section className="hero" id="top">
         <div className="hero-image" role="img" aria-label="Taste of Nawlins community table photograph" />
-        <div className="hero-copy">
+        <div className="hero-copy hero-enter">
           <p className="eyebrow">New Orleans · Pacific Northwest</p>
           <h1>New Orleans food,<br />wherever we pull up.</h1>
           <p className="hero-deck">Beignets · Chicory coffee · Red beans</p>
@@ -80,7 +96,7 @@ export default function App() {
         <a href="#follow">Follow the kitchen →</a>
       </section>
 
-      <section className="menu-section" id="menu">
+      <section className="menu-section" id="menu" data-reveal>
         <div className="section-heading">
           <p className="eyebrow">The menu</p>
           <h2>Small on purpose.</h2>
@@ -97,13 +113,13 @@ export default function App() {
         </div>
       </section>
 
-      <section className="story-statement" aria-label="Taste of Nawlins story">
+      <section className="story-statement" aria-label="Taste of Nawlins story" data-reveal>
         <p className="eyebrow">Food · people · purpose</p>
         <blockquote>Food first. Real people. Real places.</blockquote>
         <p>Taste of Nawlins is built to move through the community without losing its home base.</p>
       </section>
 
-      <section className="boxing-section" id="boxing">
+      <section className="boxing-section" id="boxing" data-reveal>
         <div className="boxing-title">
           <p className="eyebrow">A recurring community event</p>
           <h2>Boxing<br />& Beignets</h2>
@@ -115,7 +131,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="catering-section" id="catering">
+      <section className="catering-section" id="catering" data-reveal>
         <div className="section-heading compact">
           <p className="eyebrow">Catering</p>
           <h2>Bring Nawlins<br />to the table.</h2>
@@ -124,7 +140,7 @@ export default function App() {
         <PreviewForm type="catering" />
       </section>
 
-      <section className="follow-section" id="follow">
+      <section className="follow-section" id="follow" data-reveal>
         <div>
           <p className="eyebrow">Follow the kitchen</p>
           <h2>Know where we’re<br />cooking next.</h2>
@@ -132,16 +148,33 @@ export default function App() {
         <PreviewForm type="email" />
       </section>
 
-      <footer>
-        <div>
-          <span className="wordmark footer-mark">Taste of Nawlins</span>
-          <p>New Orleans food, wherever we pull up.</p>
+      <footer className="editorial-footer" data-reveal>
+        <div className="footer-topline">
+          <span className="eyebrow">Stay close</span>
+          <span className="footer-location">New Orleans soul · Pacific Northwest</span>
         </div>
-        <div className="social-links" aria-label="Social media">
-          <a href="#top" aria-label="Instagram placeholder"><FontAwesomeIcon icon={faInstagram} /></a>
-          <a href="#top" aria-label="Facebook placeholder"><FontAwesomeIcon icon={faFacebookF} /></a>
+
+        <div className="footer-social" aria-label="Social media">
+          <a className="social-word social-instagram" href="#top" aria-label="Instagram placeholder">
+            <span>Instagram</span><FontAwesomeIcon icon={faInstagram} />
+          </a>
+          <a className="social-word social-facebook" href="#top" aria-label="Facebook placeholder">
+            <span>Facebook</span><FontAwesomeIcon icon={faFacebookF} />
+          </a>
         </div>
-        <p className="footer-meta">Washington social-purpose company in development · © 2026 Taste of Nawlins</p>
+
+        <div className="footer-signoff">
+          <div>
+            <span className="wordmark footer-mark">Taste of Nawlins</span>
+            <p>New Orleans food, wherever we pull up.</p>
+          </div>
+          <a className="back-top" href="#top">Back to top ↗</a>
+        </div>
+
+        <div className="footer-meta-row">
+          <span>Washington social-purpose company in development</span>
+          <span>© 2026 Taste of Nawlins</span>
+        </div>
       </footer>
     </main>
   )
