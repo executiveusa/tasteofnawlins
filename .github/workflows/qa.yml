@@ -3,6 +3,7 @@ name: Taste of Nawlins QA
 on:
   push:
     branches:
+      - main
       - build/collins-first-slice
   workflow_dispatch:
 
@@ -32,6 +33,29 @@ jobs:
           done
           cat /tmp/taste-preview.log
           exit 1
+      - name: Runtime mount smoke test
+        run: |
+          node - <<'NODE'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({headless:true});
+            const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+            const errors = [];
+            page.on('pageerror', e => errors.push(String(e)));
+            await page.goto('http://127.0.0.1:4173', { waitUntil: 'networkidle' });
+            const bodyText = (await page.locator('body').innerText()).trim();
+            const hero = await page.locator('h1').first().innerText().catch(() => '');
+            const appFailed = await page.evaluate(() => document.documentElement.dataset.appFailed || '');
+            if (!bodyText || !hero.includes('New Orleans food') || appFailed === 'true' || errors.length) {
+              console.error({ bodyText, hero, appFailed, errors });
+              await page.screenshot({ path: 'qa-artifacts/runtime-failure.png', fullPage: true });
+              await browser.close();
+              process.exit(1);
+            }
+            await page.screenshot({ path: 'qa-artifacts/runtime-390.png', fullPage: true });
+            await browser.close();
+          })();
+          NODE
       - name: Mobile and motion smoke test
         run: node qa/mobile-smoke.mjs
       - name: Upload QA screenshots
