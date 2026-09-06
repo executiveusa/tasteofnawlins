@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons'
 
 const menu = [
-  { name: 'Beignets', note: 'Fresh · hot · powdered sugar', price: 'Coming soon' },
-  { name: 'Chicory Coffee', note: 'New Orleans-style coffee', price: 'Coming soon' },
-  { name: 'Red Beans', note: 'Slow-cooked · soulful · simple', price: 'Coming soon' },
+  { name: 'Beignets', note: 'Pillowy squares of fried dough, served hot under a generous snowfall of powdered sugar.', price: 'Coming soon' },
+  { name: 'Chicory Coffee', note: 'Dark-roasted coffee cut with roasted chicory for a deep, earthy cup with a smooth caramel finish.', price: 'Coming soon' },
+  { name: 'Red Beans', note: 'Slow-simmered red beans with Creole seasoning, warm spice and a rich, savory finish.', price: 'Coming soon' },
 ]
 
 function PreviewForm({ type }) {
@@ -99,8 +99,8 @@ export default function App() {
       <section className="menu-section" id="menu" data-reveal>
         <div className="section-heading">
           <p className="eyebrow">The menu</p>
-          <h2>Small on purpose.</h2>
-          <p>Three things to start. We earn the right to add more by making these worth coming back for.</p>
+          <h2>Simple Classics</h2>
+          <p>3 delicious New Orleans staples, every day.</p>
         </div>
         <div className="menu-list">
           {menu.map((item, index) => (
@@ -115,8 +115,7 @@ export default function App() {
 
       <section className="story-statement" aria-label="Taste of Nawlins story" data-reveal>
         <p className="eyebrow">Food · people · purpose</p>
-        <blockquote>Food first. Real people. Real places.</blockquote>
-        <p>Taste of Nawlins is built to move through the community without losing its home base.</p>
+        <blockquote>Taste of Nawlins is a pop up kitchen with a purpose</blockquote>
       </section>
 
       <section className="boxing-section" id="boxing" data-reveal>
