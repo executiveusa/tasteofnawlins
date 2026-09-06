@@ -1,6 +1,4 @@
 import { useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons'
 
 const menu = [
   { name: 'Beignets', note: 'Pillowy squares of fried dough, served hot under a generous snowfall of powdered sugar.', price: 'Coming soon' },
@@ -198,10 +196,10 @@ export default function App() {
 
         <div className="footer-social" aria-label="Social media" data-motion="footer">
           <a className="social-word social-instagram" href="#top" aria-label="Instagram placeholder">
-            <span>Instagram</span><FontAwesomeIcon icon={faInstagram} />
+            <span>Instagram</span><b aria-hidden="true">↗</b>
           </a>
           <a className="social-word social-facebook" href="#top" aria-label="Facebook placeholder">
-            <span>Facebook</span><FontAwesomeIcon icon={faFacebookF} />
+            <span>Facebook</span><b aria-hidden="true">↗</b>
           </a>
         </div>
 
