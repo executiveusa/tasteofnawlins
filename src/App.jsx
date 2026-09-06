@@ -11,7 +11,7 @@ function PreviewForm({ type }) {
   const onSubmit = (event) => {
     event.preventDefault()
     const box = event.currentTarget.querySelector('[data-preview-message]')
-    if (box) box.textContent = 'Preview only — this form will be connected to live storage at deployment.'
+    if (box) box.textContent = 'Preview only — live storage is connected in a later slice.'
   }
 
   if (type === 'email') {
@@ -20,7 +20,7 @@ function PreviewForm({ type }) {
         <label className="sr-only" htmlFor="email">Email address</label>
         <input id="email" name="email" type="email" placeholder="Email address" required />
         <button type="submit">Follow the kitchen</button>
-        <p className="form-note" data-preview-message aria-live="polite">No spam. Just drops, menus and Boxing & Beignets dates.</p>
+        <p className="form-note" data-preview-message aria-live="polite">Pop-ups, menu drops and Boxing & Beignets. No spam.</p>
       </form>
     )
   }
@@ -53,35 +53,38 @@ export default function App() {
         <a className="wordmark" href="#top" aria-label="Taste of Nawlins home">Taste of Nawlins</a>
         <nav aria-label="Primary navigation">
           <a href="#menu">Menu</a>
-          <a href="#boxing">Boxing & Beignets</a>
           <a href="#catering">Catering</a>
+          <a href="#boxing">Boxing & Beignets</a>
         </nav>
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-image" role="img" aria-label="Taste of Nawlins community food story photograph" />
+        <div className="hero-image" role="img" aria-label="Taste of Nawlins community table photograph" />
         <div className="hero-copy">
           <p className="eyebrow">New Orleans · Pacific Northwest</p>
           <h1>New Orleans food,<br />wherever we pull up.</h1>
-          <p className="hero-deck">Beignets. Chicory coffee. Red beans. A traveling kitchen with one permanent home.</p>
-          <a className="primary-link" href="#menu">See today’s menu</a>
+          <p className="hero-deck">Beignets · Chicory coffee · Red beans</p>
+          <a className="primary-link" href="#menu">See what’s cooking</a>
         </div>
       </section>
 
       <section className="next-drop" aria-label="Next service drop">
-        <div>
+        <div className="drop-kicker">
           <span className="eyebrow">Next drop</span>
           <strong>Coming soon</strong>
         </div>
-        <p>Beignets · Chicory Coffee · Red Beans</p>
-        <a href="#follow">Follow the kitchen</a>
+        <div className="drop-meta">
+          <span>Beignets + chicory coffee</span>
+          <span>Location announcing soon</span>
+        </div>
+        <a href="#follow">Follow the kitchen →</a>
       </section>
 
       <section className="menu-section" id="menu">
         <div className="section-heading">
           <p className="eyebrow">The menu</p>
           <h2>Small on purpose.</h2>
-          <p>We start with the things we want to be known for and let the menu grow from what people actually come back for.</p>
+          <p>Three things to start. We earn the right to add more by making these worth coming back for.</p>
         </div>
         <div className="menu-list">
           {menu.map((item, index) => (
@@ -94,25 +97,20 @@ export default function App() {
         </div>
       </section>
 
-      <section className="story-grid" aria-label="Taste of Nawlins story">
-        <div className="story-photo story-photo-one" role="img" aria-label="Taste of Nawlins customer holding packaged food" />
-        <blockquote>
-          <p>Food first. Real people. Real places.</p>
-          <cite>Taste of Nawlins is built to travel.</cite>
-        </blockquote>
-        <div className="story-photo story-photo-two" role="img" aria-label="Taste of Nawlins community customer photograph" />
-        <div className="story-photo story-photo-three" role="img" aria-label="Taste of Nawlins gathering around a table" />
+      <section className="story-statement" aria-label="Taste of Nawlins story">
+        <p className="eyebrow">Food · people · purpose</p>
+        <blockquote>Food first. Real people. Real places.</blockquote>
+        <p>Taste of Nawlins is built to move through the community without losing its home base.</p>
       </section>
 
       <section className="boxing-section" id="boxing">
         <div className="boxing-title">
-          <p className="eyebrow">A recurring community pop-up</p>
+          <p className="eyebrow">A recurring community event</p>
           <h2>Boxing<br />& Beignets</h2>
         </div>
         <div className="boxing-copy">
-          <h3>Food. Fighters. A reason to show up.</h3>
-          <p>Every other week, Taste of Nawlins plans to pop up with beignets, coffee, conversations with fighters, and a community fundraiser supporting youth boxing and mentorship.</p>
-          <p className="purpose-line">Our specific social purpose: support youth through boxing and mentorship, using food and community events to create access to positive coaching, discipline and opportunity.</p>
+          <h3>Food. Fighters. Mentorship.</h3>
+          <p>Taste of Nawlins supports youth through boxing and mentorship. Boxing & Beignets is the recurring event where the food business and the mission meet through interviews, community partners and fundraising.</p>
           <div className="inline-links"><a href="#follow">Get the next date</a><a href="#catering">Partner with us</a></div>
         </div>
       </section>
@@ -132,12 +130,6 @@ export default function App() {
           <h2>Know where we’re<br />cooking next.</h2>
         </div>
         <PreviewForm type="email" />
-      </section>
-
-      <section className="impact-strip">
-        <p className="eyebrow">Food with a job to do</p>
-        <p>Boxing & Beignets is the mission-forward event supporting youth boxing and mentorship. Impact numbers will only be published when they are verified.</p>
-        <a href="#top">Social purpose report · coming later</a>
       </section>
 
       <footer>
