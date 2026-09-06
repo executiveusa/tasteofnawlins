@@ -8,6 +8,29 @@ const menu = [
   { name: 'Red Beans', note: 'Slow-simmered red beans with Creole seasoning, warm spice and a rich, savory finish.', price: 'Coming soon' },
 ]
 
+const storyFrames = [
+  {
+    className: 'story-frame-counter',
+    alt: 'Taste of Nawlins food being handed across a neighborhood counter',
+    caption: 'Made to travel. Handed over in person.',
+  },
+  {
+    className: 'story-frame-first-taste',
+    alt: 'A customer holding a Taste of Nawlins food container',
+    caption: 'A little New Orleans, wherever the day takes us.',
+  },
+  {
+    className: 'story-frame-walmart',
+    alt: 'A worker holding a Taste of Nawlins food container',
+    caption: 'First tastes become the story.',
+  },
+  {
+    className: 'story-frame-table',
+    alt: 'People gathered around a table with Taste of Nawlins food',
+    caption: 'The table is the point.',
+  },
+]
+
 function PreviewForm({ type }) {
   const onSubmit = (event) => {
     event.preventDefault()
@@ -29,15 +52,15 @@ function PreviewForm({ type }) {
   return (
     <form className="catering-form" onSubmit={onSubmit}>
       <div className="field-pair">
-        <label>Name<input name="name" required /></label>
-        <label>Email<input name="email" type="email" required /></label>
+        <label>Name<input name="name" autoComplete="name" required /></label>
+        <label>Email<input name="email" type="email" autoComplete="email" required /></label>
       </div>
       <div className="field-pair">
-        <label>Phone<input name="phone" type="tel" /></label>
+        <label>Phone<input name="phone" type="tel" autoComplete="tel" /></label>
         <label>Event date<input name="eventDate" type="date" /></label>
       </div>
       <div className="field-pair">
-        <label>Guest count<input name="guestCount" type="number" min="1" /></label>
+        <label>Guest count<input name="guestCount" type="number" min="1" inputMode="numeric" /></label>
         <label>Pickup or delivery<select name="fulfillment"><option>Not sure yet</option><option>Pickup</option><option>Delivery</option></select></label>
       </div>
       <label>Tell us about the event<textarea name="notes" rows="4" /></label>
@@ -49,7 +72,12 @@ function PreviewForm({ type }) {
 
 export default function App() {
   useEffect(() => {
-    const nodes = document.querySelectorAll('[data-reveal]')
+    const nodes = document.querySelectorAll('[data-motion]')
+    if (!('IntersectionObserver' in window)) {
+      nodes.forEach((node) => node.classList.add('is-visible'))
+      return undefined
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -57,7 +85,7 @@ export default function App() {
           observer.unobserve(entry.target)
         }
       })
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' })
+    }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' })
 
     nodes.forEach((node) => observer.observe(node))
     return () => observer.disconnect()
@@ -84,7 +112,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="next-drop" aria-label="Next service drop">
+      <section className="next-drop drop-enter" aria-label="Next service drop">
         <div className="drop-kicker">
           <span className="eyebrow">Next drop</span>
           <strong>Coming soon</strong>
@@ -96,15 +124,15 @@ export default function App() {
         <a href="#follow">Follow the kitchen →</a>
       </section>
 
-      <section className="menu-section" id="menu" data-reveal>
-        <div className="section-heading">
+      <section className="menu-section" id="menu">
+        <div className="section-heading" data-motion="quiet">
           <p className="eyebrow">The menu</p>
           <h2>Simple Classics</h2>
           <p>3 delicious New Orleans staples, every day.</p>
         </div>
-        <div className="menu-list">
+        <div className="menu-list" data-motion="rows">
           {menu.map((item, index) => (
-            <article className="menu-row" key={item.name}>
+            <article className="menu-row" key={item.name} style={{ '--row': index }}>
               <span className="menu-index">0{index + 1}</span>
               <div><h3>{item.name}</h3><p>{item.note}</p></div>
               <span className="menu-price">{item.price}</span>
@@ -113,47 +141,62 @@ export default function App() {
         </div>
       </section>
 
-      <section className="story-statement" aria-label="Taste of Nawlins story" data-reveal>
-        <p className="eyebrow">Food · people · purpose</p>
-        <blockquote>Taste of Nawlins is a pop up kitchen with a purpose</blockquote>
+      <section className="field-notes" aria-labelledby="field-notes-title">
+        <div className="field-notes-heading" data-motion="quiet">
+          <p className="eyebrow">Around town</p>
+          <h2 id="field-notes-title">A kitchen that<br />meets you there.</h2>
+        </div>
+        <div className="story-gallery">
+          {storyFrames.map((frame, index) => (
+            <figure className={`story-frame story-frame-${index + 1}`} data-motion="photo" style={{ '--photo': index }} key={frame.className}>
+              <div className={`story-image ${frame.className}`} role="img" aria-label={frame.alt} />
+              <figcaption><span>0{index + 1}</span>{frame.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
       </section>
 
-      <section className="boxing-section" id="boxing" data-reveal>
-        <div className="boxing-title">
+      <section className="story-statement" aria-label="Taste of Nawlins story">
+        <p className="eyebrow" data-motion="quiet">Food · people · purpose</p>
+        <blockquote data-motion="statement">Taste of Nawlins is a pop up kitchen with a purpose</blockquote>
+      </section>
+
+      <section className="boxing-section" id="boxing">
+        <div className="boxing-title" data-motion="quiet">
           <p className="eyebrow">A recurring community event</p>
           <h2>Boxing<br />& Beignets</h2>
         </div>
-        <div className="boxing-copy">
+        <div className="boxing-copy" data-motion="quiet">
           <h3>Food. Fighters. Mentorship.</h3>
           <p>Taste of Nawlins supports youth through boxing and mentorship. Boxing & Beignets is the recurring event where the food business and the mission meet through interviews, community partners and fundraising.</p>
           <div className="inline-links"><a href="#follow">Get the next date</a><a href="#catering">Partner with us</a></div>
         </div>
       </section>
 
-      <section className="catering-section" id="catering" data-reveal>
-        <div className="section-heading compact">
+      <section className="catering-section" id="catering">
+        <div className="section-heading compact" data-motion="quiet">
           <p className="eyebrow">Catering</p>
           <h2>Bring Nawlins<br />to the table.</h2>
           <p>Small gatherings, community events and pop-ups. Tell us what you’re planning.</p>
         </div>
-        <PreviewForm type="catering" />
+        <div data-motion="quiet"><PreviewForm type="catering" /></div>
       </section>
 
-      <section className="follow-section" id="follow" data-reveal>
-        <div>
+      <section className="follow-section" id="follow">
+        <div data-motion="quiet">
           <p className="eyebrow">Follow the kitchen</p>
           <h2>Know where we’re<br />cooking next.</h2>
         </div>
-        <PreviewForm type="email" />
+        <div data-motion="quiet"><PreviewForm type="email" /></div>
       </section>
 
-      <footer className="editorial-footer" data-reveal>
+      <footer className="editorial-footer">
         <div className="footer-topline">
           <span className="eyebrow">Stay close</span>
           <span className="footer-location">New Orleans soul · Pacific Northwest</span>
         </div>
 
-        <div className="footer-social" aria-label="Social media">
+        <div className="footer-social" aria-label="Social media" data-motion="footer">
           <a className="social-word social-instagram" href="#top" aria-label="Instagram placeholder">
             <span>Instagram</span><FontAwesomeIcon icon={faInstagram} />
           </a>
