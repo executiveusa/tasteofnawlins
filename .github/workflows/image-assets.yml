@@ -1,0 +1,82 @@
+name: Taste of Nawlins image assets
+
+on:
+  push:
+    branches: [fix/original-photo-quality]
+    paths: [.github/workflows/image-assets.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  prepare-images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image processor
+        run: python -m pip install Pillow==11.3.0
+      - name: Download and validate enhanced originals
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, os, urllib.request
+          from pathlib import Path
+          from PIL import Image, ImageOps
+          sources = {
+            'counter': ('https://v3b.fal.media/files/b/0aa963ad/lUnVz1GG9pmYTd-0KI_OR_image.png', (4504, 6006)),
+            'first-taste': ('https://v3b.fal.media/files/b/0aa963b3/6M149aYdtmyNV84C8HO5L_image.png', (3616, 5430)),
+            'walmart': ('https://v3b.fal.media/files/b/0aa963b6/oqIWLqSJnCijx_KoFDCJv_image.png', (2880, 5120)),
+            'table': ('https://v3b.fal.media/files/b/0aa963ba/IF5yhddIQDGgnTE_LDe8J_image.png', (6070, 4928)),
+          }
+          masters = Path('image-masters'); masters.mkdir(exist_ok=True)
+          out = Path('public/images'); out.mkdir(parents=True, exist_ok=True)
+          manifest = {}
+          for name, (url, expected) in sources.items():
+              source = masters / (name + '.png')
+              with urllib.request.urlopen(url, timeout=90) as response, source.open('wb') as target:
+                  while True:
+                      chunk = response.read(1024 * 1024)
+                      if not chunk: break
+                      target.write(chunk)
+              with Image.open(source) as check:
+                  check.verify()
+              with Image.open(source) as original:
+                  im = ImageOps.exif_transpose(original).convert('RGB')
+                  if im.size != expected:
+                      raise RuntimeError(f'{name}: expected {expected}, got {im.size}')
+                  widths = [720, 1440, 2400] if name != 'table' else [1280, 1920, 2880, 3840]
+                  files = []
+                  for width in widths:
+                      if width > im.width: continue
+                      height = round(im.height * width / im.width)
+                      resized = im.resize((width, height), Image.Resampling.LANCZOS)
+                      destination = out / f'{name}-{width}.webp'
+                      resized.save(destination, 'WEBP', quality=88, method=6)
+                      with Image.open(destination) as verify:
+                          verify.verify()
+                      files.append({'path': str(destination), 'width': width, 'height': height, 'bytes': destination.stat().st_size})
+                  manifest[name] = {'master': str(source), 'master_size': list(im.size), 'sha256': hashlib.sha256(source.read_bytes()).hexdigest(), 'files': files}
+          Path('image-masters/manifest.json').write_text(json.dumps(manifest, indent=2))
+          print(json.dumps(manifest, indent=2))
+          PY
+      - name: Upload masters and responsive assets for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: taste-photo-masters-and-web
+          path: |
+            image-masters/
+            public/images/
+          retention-days: 30
+      - name: Commit image assets to review branch
+        run: |
+          git config user.name 'Taste of Nawlins image pipeline'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/images/
+          git commit -m 'Add verified high-resolution photo variants'
+          git push origin HEAD:fix/original-photo-quality
