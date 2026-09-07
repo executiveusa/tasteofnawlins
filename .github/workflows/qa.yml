@@ -6,6 +6,7 @@ on:
       - main
       - build/collins-first-slice
       - fix/original-photo-quality
+      - fix/original-photo-hero-20260906
   workflow_dispatch:
 
 jobs:
