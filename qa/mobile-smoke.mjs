@@ -49,7 +49,8 @@ for (const vp of viewports) {
     } catch (error) { failures.push(`${vp.name}: image ${i}: ${error.message}`) }
     const info = await photo.evaluate(image => ({ src: image.currentSrc, width: image.naturalWidth, height: image.naturalHeight }))
     if (!info.src.includes('/images/') || info.width <= 0) failures.push(`${vp.name}: invalid image source ${info.src}`)
-    if (i === 0 && !info.src.includes(vp.width <= 760 ? '/counter-' : '/table-')) failures.push(`${vp.name}: wrong hero art direction`)
+    if (i === 0 && !info.src.includes('/table-')) failures.push(`${vp.name}: medal photograph is not the hero`)
+    if (i === 0 && info.width < vp.width * vp.dpr) failures.push(`${vp.name}: hero source too small (${info.width} < ${vp.width * vp.dpr})`)
     console.log(`${vp.name} image ${i}: ${info.width}x${info.height} ${info.src}`)
   }
 
@@ -88,4 +89,4 @@ if (failures.length) {
   failures.forEach(f => console.error(`- ${f}`))
   process.exit(1)
 }
-console.log('QA PASS: React, all five images, responsive source selection, no horizontal overflow, menu, story, motion and reduced motion.')
+console.log('QA PASS: React, all five images, medal hero on every viewport, responsive resolution, no horizontal overflow, menu, story, motion and reduced motion.')
