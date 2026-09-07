@@ -5,6 +5,8 @@ const menu = [
   { name: 'Beignets', note: 'Pillowy squares of fried dough, served hot under a generous snowfall of powdered sugar.', price: 'Coming soon' },
   { name: 'Chicory Coffee', note: 'Dark-roasted coffee cut with roasted chicory for a deep, earthy cup with a smooth caramel finish.', price: 'Coming soon' },
   { name: 'Red Beans', note: 'Slow-simmered red beans with Creole seasoning, warm spice and a rich, savory finish.', price: 'Coming soon' },
+  { name: 'Cornbread', note: 'Golden-edged and tender-crumbed, with a touch of sweetness and a rich, buttery finish.', price: 'Coming soon' },
+  { name: 'Cabbage', note: 'Slow-braised cabbage with onion, garlic and Creole spice until silky, savory and deeply seasoned.', price: 'Coming soon' },
 ]
 
 const photoSet = (name, widths) => widths.map((width) => `/images/${name}-${width}.webp ${width}w`).join(', ')
@@ -101,7 +103,7 @@ export default function App() {
       </section>
       <section className="menu-section" id="menu">
         <div className="section-heading" data-motion="quiet">
-          <p className="eyebrow">The menu</p><h2>Simple Classics</h2><p>3 delicious New Orleans staples, every day.</p>
+          <p className="eyebrow">The menu</p><h2>Simple Classics</h2><p>5 delicious New Orleans staples, every day.</p>
         </div>
         <div className="menu-list" data-motion="rows">
           {menu.map((item, index) => (
