@@ -85,8 +85,7 @@ export default function App() {
       </header>
       <section className="hero" id="top">
         <picture className="hero-image">
-          <source media="(max-width: 760px)" srcSet={photoSet('counter', [720, 1440, 2400])} sizes="100vw" />
-          <img src="/images/table-1920.webp" srcSet={photoSet('table', [1280, 1920, 2880, 3840])} sizes="100vw" width="6070" height="4928" alt="Taste of Nawlins community table" loading="eager" decoding="async" fetchPriority="high" />
+          <img src="/images/table-1920.webp" srcSet={photoSet('table', [1280, 1920, 2880, 3840])} sizes="100vw" width="6070" height="4928" alt="Taste of Nawlins founder wearing his medal at a community table with two veterans" loading="eager" decoding="async" fetchPriority="high" />
         </picture>
         <div className="hero-copy hero-enter">
           <p className="eyebrow">New Orleans · Pacific Northwest</p>
