@@ -146,8 +146,8 @@ export default function App() {
       <footer className="editorial-footer">
         <div className="footer-topline"><span className="eyebrow">Stay close</span><span className="footer-location">New Orleans soul · Pacific Northwest</span></div>
         <div className="footer-social" aria-label="Social media" data-motion="footer">
-          <a className="social-word social-instagram" href="#top" aria-label="Instagram placeholder"><span>Instagram</span><b aria-hidden="true">↗</b></a>
-          <a className="social-word social-facebook" href="#top" aria-label="Facebook placeholder"><span>Facebook</span><b aria-hidden="true">↗</b></a>
+          <a className="social-word social-instagram" href="https://www.instagram.com/" aria-label="Instagram — open Instagram" target="_blank" rel="noopener noreferrer"><span>Instagram</span><b aria-hidden="true">↗</b></a>
+          <a className="social-word social-facebook" href="https://www.facebook.com/r.php" aria-label="Facebook — sign up" target="_blank" rel="noopener noreferrer"><span>Facebook</span><b aria-hidden="true">↗</b></a>
         </div>
         <div className="footer-signoff"><div><span className="wordmark footer-mark">Taste of Nawlins</span><p>New Orleans food, wherever we pull up.</p></div><a className="back-top" href="#top">Back to top ↗</a></div>
         <div className="footer-meta-row"><span>Washington social-purpose company in development</span><span>© 2026 Taste of Nawlins</span></div>
