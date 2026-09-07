@@ -11,10 +11,10 @@ const photoSet = (name, widths) => widths.map((width) => `/images/${name}-${widt
 const galleryWidths = (name) => name === 'table' ? [1280, 1920, 2880, 3840] : [720, 1440, 2400]
 
 const storyFrames = [
-  { name: 'counter', className: 'story-frame-counter', width: 4504, height: 6006, alt: 'Taste of Nawlins food being handed across a neighborhood counter', caption: 'Made to travel. Handed over in person.' },
-  { name: 'first-taste', className: 'story-frame-first-taste', width: 3616, height: 5430, alt: 'A customer holding a Taste of Nawlins food container', caption: 'A little New Orleans, wherever the day takes us.' },
-  { name: 'walmart', className: 'story-frame-walmart', width: 2880, height: 5120, alt: 'A worker holding a Taste of Nawlins food container', caption: 'First tastes become the story.' },
-  { name: 'table', className: 'story-frame-table', width: 6070, height: 4928, alt: 'People gathered around a table with Taste of Nawlins food', caption: 'The table is the point.' },
+  { name: 'counter', className: 'story-frame-counter', width: 4504, height: 6006, alt: 'Taste of Nawlins food being handed across a neighborhood counter' },
+  { name: 'first-taste', className: 'story-frame-first-taste', width: 3616, height: 5430, alt: 'A customer holding a Taste of Nawlins food container' },
+  { name: 'walmart', className: 'story-frame-walmart', width: 2880, height: 5120, alt: 'A worker holding a Taste of Nawlins food container' },
+  { name: 'table', className: 'story-frame-table', width: 6070, height: 4928, alt: 'People gathered around a table with Taste of Nawlins food' },
 ]
 
 function PreviewForm({ type }) {
@@ -119,7 +119,6 @@ export default function App() {
           {storyFrames.map((frame, index) => (
             <figure className={`story-frame story-frame-${index + 1}`} data-motion="photo" style={{ '--photo': index }} key={frame.className}>
               <img className={`story-image ${frame.className}`} src={`/images/${frame.name}-${frame.name === 'table' ? 1920 : 1440}.webp`} srcSet={photoSet(frame.name, galleryWidths(frame.name))} sizes="(max-width: 760px) 100vw, 50vw" width={frame.width} height={frame.height} alt={frame.alt} loading="lazy" decoding="async" />
-              <figcaption><span>0{index + 1}</span>{frame.caption}</figcaption>
             </figure>
           ))}
         </div>
