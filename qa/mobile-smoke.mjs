@@ -28,7 +28,7 @@ for (const vp of viewports) {
   for (const selector of required) {
     if (!(await page.locator(selector).count())) failures.push(`${vp.name}: missing ${selector}`)
   }
-  if (await page.locator('.menu-row').count() !== 3) failures.push(`${vp.name}: expected 3 menu rows`)
+  if (await page.locator('.menu-row').count() !== 5) failures.push(`${vp.name}: expected 5 menu rows`)
   if (await page.locator('.story-frame').count() !== 4) failures.push(`${vp.name}: expected 4 story frames`)
   if (!(await page.locator('.hero h1').isVisible())) failures.push(`${vp.name}: hero not visible`)
 
@@ -76,6 +76,15 @@ for (const vp of viewports) {
   for (let i = 0; i < await submitButtons.count(); i++) {
     const box = await submitButtons.nth(i).boundingBox()
     if (box && box.height < 44) failures.push(`${vp.name}: submit target below 44px (${box.height})`)
+  }
+  if (vp.width <= 768) {
+    const tapTargets = page.locator('a, button, input, select, textarea')
+    for (let i = 0; i < await tapTargets.count(); i++) {
+      const target = tapTargets.nth(i)
+      if (!(await target.isVisible())) continue
+      const box = await target.boundingBox()
+      if (box && (box.height < 44 || box.width < 44)) failures.push(`${vp.name}: interactive target ${i} below 44px (${Math.round(box.width)}x${Math.round(box.height)})`)
+    }
   }
   await page.locator('#menu').scrollIntoViewIfNeeded()
   await page.waitForTimeout(150)
