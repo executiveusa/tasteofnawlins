@@ -6,7 +6,7 @@ const menu = [
   { name: 'Chicory Coffee', note: 'Dark-roasted coffee cut with roasted chicory for a deep, earthy cup with a smooth caramel finish.', price: 'Coming soon' },
   { name: 'Red Beans', note: 'Slow-simmered red beans with Creole seasoning, warm spice and a rich, savory finish.', price: 'Coming soon' },
   { name: 'Cornbread', note: 'Golden-edged and tender-crumbed, with a touch of sweetness and a rich, buttery finish.', price: 'Coming soon' },
-  { name: 'Cabbage', note: 'Slow-braised cabbage with onion, garlic and Creole spice until silky, savory and deeply seasoned.', price: 'Coming soon' },
+  { name: 'Cabbage', note: 'Slow-cooked cabbage with onion, garlic and Creole seasoning—tender, savory and full of flavor.', price: 'Coming soon' },
 ]
 
 const photoSet = (name, widths) => widths.map((width) => `/images/${name}-${width}.webp ${width}w`).join(', ')
