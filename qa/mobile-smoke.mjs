@@ -29,6 +29,11 @@ for (const vp of viewports) {
     if (!(await page.locator(selector).count())) failures.push(`${vp.name}: missing ${selector}`)
   }
   if (await page.locator('.menu-row').count() !== 6) failures.push(`${vp.name}: expected 6 menu rows`)
+  if (await page.locator('.menu-index').count() !== 0) failures.push(`${vp.name}: unwanted numbered menu labels`)
+  if (await page.locator('.guest-gallery .guest-media').count() !== 4) failures.push(`${vp.name}: expected 4 gallery entries`)
+  if (!(await page.locator('a[download][href="/taste-of-nawlins-menu.html"]').count())) failures.push(`${vp.name}: download menu link missing`)
+  const savedMenu = await page.request.get((base.endsWith('/') ? base.slice(0,-1) : base) + '/taste-of-nawlins-menu.html')
+  if (!savedMenu.ok() || !(await savedMenu.text()).includes('Café du Monde')) failures.push(`${vp.name}: offline HTML menu inaccessible or missing coffee`)
   if (await page.locator('.story-frame').count() !== 4) failures.push(`${vp.name}: expected 4 story frames`)
   if (!(await page.locator('.hero h1').isVisible())) failures.push(`${vp.name}: hero not visible`)
 
@@ -37,6 +42,7 @@ for (const vp of viewports) {
   if (signatureResponse?.status() >= 400) failures.push(`${vp.name}: signature page HTTP ${signatureResponse.status()}`)
   if (!(await page.locator('#signature-title').count())) failures.push(`${vp.name}: signature page content missing`)
   if (await page.locator('.signature-questions details').count() !== 7) failures.push(`${vp.name}: expected 7 FAQs`)
+  if (!(await page.locator('a[href="https://futurechampsgym.com/"]').count())) failures.push(`${vp.name}: Future Champs doorway missing`)
   await page.goto(base, { waitUntil: 'networkidle' })
   const photos = page.locator('.hero-image img, .story-gallery img')
   if (await photos.count() !== 5) failures.push(`${vp.name}: expected 5 image elements`)
