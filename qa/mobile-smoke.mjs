@@ -33,7 +33,11 @@ for (const vp of viewports) {
   if (await page.locator('.guest-gallery .guest-media').count() !== 4) failures.push(`${vp.name}: expected 4 gallery entries`)
   if (!(await page.locator('a[download][href="/taste-of-nawlins-menu.html"]').count())) failures.push(`${vp.name}: download menu link missing`)
   const savedMenu = await page.request.get((base.endsWith('/') ? base.slice(0,-1) : base) + '/taste-of-nawlins-menu.html')
-  if (!savedMenu.ok() || !(await savedMenu.text()).includes('Café du Monde')) failures.push(`${vp.name}: offline HTML menu inaccessible or missing coffee`)
+  const savedMenuHtml = await savedMenu.text()
+  if (!savedMenu.ok() || !savedMenuHtml.includes('Café du Monde’s Original Chicory Coffee')) failures.push(`${vp.name}: offline HTML menu inaccessible or missing coffee`)
+  if (!savedMenuHtml.includes('Chicory Coffee &amp; Beignets')) failures.push(`${vp.name}: signature pairing name missing from HTML menu`)
+  if (!savedMenuHtml.includes('data:image/webp;base64,')) failures.push(`${vp.name}: offline menu missing embedded tabletop photo`)
+  if (!savedMenuHtml.includes('prefers-reduced-motion')) failures.push(`${vp.name}: offline menu missing reduced-motion treatment`)
   if (await page.locator('.story-frame').count() !== 4) failures.push(`${vp.name}: expected 4 story frames`)
   if (!(await page.locator('.hero h1').isVisible())) failures.push(`${vp.name}: hero not visible`)
 
