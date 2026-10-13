@@ -569,3 +569,32 @@ img { max-width: 100%; display: block; }
   [data-motion='footer'],
   .hero-enter > * { opacity: 1; transform: none; clip-path: none; }
 }
+
+/* No sequential item labels: let the dish names and descriptions carry the menu. */
+.menu-row { grid-template-columns: minmax(0,1fr) auto; }
+.menu-index { display:none; }
+.menu-download { display:inline-flex;align-items:center;min-height:48px;margin-top:1.2rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-underline-offset:.4em; }
+.guest-gallery { padding:clamp(4.5rem,9vw,9rem) 2rem;background:#e7dccc; }
+.guest-gallery-heading { display:grid;grid-template-columns:1fr 1.2fr;gap:1rem 3rem;align-items:end;margin-bottom:clamp(2rem,5vw,5rem); }
+.guest-gallery-heading .eyebrow { grid-column:1/-1; }
+.guest-gallery h2 { font:500 clamp(3.4rem,7.2vw,7.7rem)/.94 'Fraunces',Georgia,serif;letter-spacing:-.06em;margin:0; }
+.guest-gallery-heading > p:last-child { max-width:27rem;line-height:1.7;justify-self:end; }
+.guest-gallery-grid { display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(1rem,2vw,1.8rem);align-items:start; }
+.guest-media { min-width:0;grid-column:span 3;margin:0; }
+.guest-media:nth-child(4n+1),.guest-media:nth-child(4n+4) { grid-column:span 4; }
+.guest-media:nth-child(4n+2),.guest-media:nth-child(4n+3) { grid-column:span 2; }
+.guest-media a { display:block;min-height:44px;overflow:hidden;background:#d1bfa6; }
+.guest-media img,.guest-media video { display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;background:#d1bfa6; }
+.guest-media video { aspect-ratio:9/16;object-fit:contain;background:#261a15; }
+.guest-media figcaption { font-size:.74rem;line-height:1.5;margin-top:.75rem;color:#5d4d40; }
+@media(max-width:760px) {
+  .menu-row { grid-template-columns:minmax(0,1fr); }
+  .menu-price { grid-column:1; }
+  .guest-gallery { padding:4.4rem 1.1rem; }
+  .guest-gallery-heading { grid-template-columns:1fr; }
+  .guest-gallery-heading > p:last-child { justify-self:start; }
+  .guest-gallery-grid { grid-template-columns:repeat(2,minmax(0,1fr));gap:1.3rem .8rem; }
+  .guest-media:nth-child(n) { grid-column:span 1; }
+  .guest-media:nth-child(3n+1) { grid-column:span 2; }
+  .guest-media:nth-child(3n+1) img { aspect-ratio:5/4; }
+}
