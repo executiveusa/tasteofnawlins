@@ -125,7 +125,7 @@ function PreviewForm({ type }) {
 }
 
 export default function App() {
-  const isSignaturePage = window.location.pathname.replace(/\\/$/, '') === '/coffee-and-beignets'
+  const isSignaturePage = ['/coffee-and-beignets', '/coffee-and-beignets/'].includes(window.location.pathname)
   useEffect(() => {
     const nodes = document.querySelectorAll('[data-motion]')
     if (!('IntersectionObserver' in window)) {
