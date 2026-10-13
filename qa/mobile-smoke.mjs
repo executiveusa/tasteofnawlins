@@ -33,7 +33,7 @@ for (const vp of viewports) {
   if (!(await page.locator('.hero h1').isVisible())) failures.push(`${vp.name}: hero not visible`)
 
   if (!(await page.locator('a[href="/coffee-and-beignets"]').count())) failures.push(`${vp.name}: signature link missing`)
-  const signatureResponse = await page.goto(base.replace(/\\/$/,'') + '/coffee-and-beignets', { waitUntil: 'networkidle' })
+  const signatureResponse = await page.goto((base.endsWith('/') ? base.slice(0, -1) : base) + '/coffee-and-beignets', { waitUntil: 'networkidle' })
   if (signatureResponse?.status() >= 400) failures.push(`${vp.name}: signature page HTTP ${signatureResponse.status()}`)
   if (!(await page.locator('#signature-title').count())) failures.push(`${vp.name}: signature page content missing`)
   if (await page.locator('.signature-questions details').count() !== 7) failures.push(`${vp.name}: expected 7 FAQs`)
