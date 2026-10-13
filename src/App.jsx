@@ -75,9 +75,16 @@ function SignaturePage() {
         </div>
       </section>
       <section className="signature-boxing" id="boxing">
-        <p className="eyebrow">From the table to the ring</p><h2>Boxing <em>&</em><br />Beignets.</h2>
-        <p>The signature pairing also gives its name to Boxing & Beignets: conversations with fighters, coaches, and neighbors that bring attention to youth boxing and mentorship in connection with Future Champs. Taste of Nawlins provides the food tradition; the podcast and community purpose have their own story.</p>
-        <a className="signature-cta" href="/#boxing">Explore Boxing & Beignets <span aria-hidden="true">↗</span></a>
+        <p className="eyebrow">Where the table meets the ring</p>
+        <h2>Boxing <em>&</em><br />Beignets.</h2>
+        <p>It starts with a familiar New Orleans tradition: coffee, beignets, and a reason to sit down together. Boxing & Beignets carries that spirit into conversations with fighters, coaches, and neighbors about the young people coming up behind them.</p>
+        <div className="signature-purpose">
+          <p className="eyebrow">The purpose beyond the plate</p>
+          <h3>Good food opens the conversation. Mentorship gives it somewhere to go.</h3>
+          <p>Future Champs focuses on youth boxing and mentorship. Taste of Nawlins brings the food; Boxing & Beignets brings people to the table; Future Champs is where visitors can learn about the work with young athletes. Each has a distinct role, connected by the same community.</p>
+          <a className="signature-cta" href="https://futurechampsgym.com/" target="_blank" rel="noopener noreferrer" aria-label="Discover Future Champs youth boxing and mentorship (opens a new website)">Discover Future Champs <span aria-hidden="true">↗</span></a>
+          <p className="signature-purpose-note">Future Champs is a separate organization. Coffee and beignet purchases are not represented as charitable donations.</p>
+        </div>
       </section>
       <section className="signature-faq" id="faq"><div><p className="eyebrow">Good to know</p><h2>Frequently asked<br />questions.</h2></div>
         <div className="signature-questions">{signatureFAQs.map(({question,answer}) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div>
