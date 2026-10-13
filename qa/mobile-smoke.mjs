@@ -28,10 +28,16 @@ for (const vp of viewports) {
   for (const selector of required) {
     if (!(await page.locator(selector).count())) failures.push(`${vp.name}: missing ${selector}`)
   }
-  if (await page.locator('.menu-row').count() !== 5) failures.push(`${vp.name}: expected 5 menu rows`)
+  if (await page.locator('.menu-row').count() !== 6) failures.push(`${vp.name}: expected 6 menu rows`)
   if (await page.locator('.story-frame').count() !== 4) failures.push(`${vp.name}: expected 4 story frames`)
   if (!(await page.locator('.hero h1').isVisible())) failures.push(`${vp.name}: hero not visible`)
 
+  if (!(await page.locator('a[href="/coffee-and-beignets"]').count())) failures.push(`${vp.name}: signature link missing`)
+  const signatureResponse = await page.goto(base.replace(/\\/$/,'') + '/coffee-and-beignets', { waitUntil: 'networkidle' })
+  if (signatureResponse?.status() >= 400) failures.push(`${vp.name}: signature page HTTP ${signatureResponse.status()}`)
+  if (!(await page.locator('#signature-title').count())) failures.push(`${vp.name}: signature page content missing`)
+  if (await page.locator('.signature-questions details').count() !== 7) failures.push(`${vp.name}: expected 7 FAQs`)
+  await page.goto(base, { waitUntil: 'networkidle' })
   const photos = page.locator('.hero-image img, .story-gallery img')
   if (await photos.count() !== 5) failures.push(`${vp.name}: expected 5 image elements`)
   for (let i = 0; i < await photos.count(); i++) {
@@ -111,4 +117,4 @@ if (failures.length) {
   failures.forEach(f => console.error(`- ${f}`))
   process.exit(1)
 }
-console.log('QA PASS: React, all five images, medal hero on every viewport, actual file resolution, no horizontal overflow, menu, story, motion and reduced motion.')
+console.log('QA PASS: React, all five images, medal hero on every viewport, actual file resolution, no horizontal overflow, six-item menu, signature page, FAQ, story, motion and reduced motion.')
