@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import './photo-quality.css'
+import './signature.css'
 
 const menu = [
   { name: 'Beignets', note: 'Pillowy squares of fried dough, served hot under a generous snowfall of powdered sugar.', price: 'Coming soon' },
-  { name: 'Chicory Coffee', note: 'Dark-roasted coffee cut with roasted chicory for a deep, earthy cup with a smooth caramel finish.', price: 'Coming soon' },
+  { name: 'Café du Monde Coffee & Chicory', note: 'The original 15 oz. Café du Monde dark-roasted coffee and chicory blend, a New Orleans classic.', price: 'Coming soon' },
   { name: 'Red Beans', note: 'Slow-simmered red beans with Creole seasoning, warm spice and a rich, savory finish.', price: 'Coming soon' },
   { name: 'Cornbread', note: 'Golden-edged and tender-crumbed, with a touch of sweetness and a rich, buttery finish.', price: 'Coming soon' },
   { name: 'Cabbage', note: 'Slow-cooked cabbage with onion, garlic and Creole seasoning—tender, savory and full of flavor.', price: 'Coming soon' },
@@ -19,6 +20,72 @@ const storyFrames = [
   { name: 'walmart', className: 'story-frame-walmart', width: 2880, height: 5120, alt: 'A worker holding a Taste of Nawlins food container' },
   { name: 'table', className: 'story-frame-table', width: 6070, height: 4928, alt: 'People gathered around a table with Taste of Nawlins food' },
 ]
+
+
+const signatureFAQs = [
+  { question: 'What coffee do you serve?', answer: 'We serve Café du Monde Coffee & Chicory, a dark-roasted New Orleans blend. The exact drink options will be announced with each pop-up.' },
+  { question: 'What are beignets?', answer: 'Beignets are squares of fried dough, traditionally served hot and generously covered in powdered sugar.' },
+  { question: 'What is chicory?', answer: 'Chicory comes from the roasted root of the endive plant. Blended with coffee, it gives the cup a fuller, distinctive flavor.' },
+  { question: 'Does coffee and chicory contain caffeine?', answer: 'Yes. Chicory itself contains no caffeine, but Café du Monde Coffee & Chicory contains coffee.' },
+  { question: 'Is café au lait an option?', answer: 'Café au lait is the traditional combination of coffee and hot milk. We will announce preparation options before service.' },
+  { question: 'Are the beignets gluten-free?', answer: 'Traditional beignets contain wheat flour. Ask the team about the specific ingredients and allergens at your pop-up before ordering.' },
+  { question: 'Where can I find Coffee & Beignets?', answer: 'Taste of Nawlins is a traveling kitchen. Follow our next-drop announcements for the date, location, and availability.' },
+]
+
+function SignaturePage() {
+  useEffect(() => {
+    document.title = 'Coffee & Beignets | Taste of Nawlins'
+    return () => { document.title = 'Taste of Nawlins' }
+  }, [])
+  return (
+    <main className="signature-page">
+      <header className="signature-header">
+        <a className="wordmark" href="/" aria-label="Taste of Nawlins home">Taste of Nawlins</a>
+        <nav aria-label="Signature page navigation"><a href="/#menu">Full menu</a><a href="#history">Our tradition</a><a href="#faq">FAQ</a></nav>
+      </header>
+      <section className="signature-hero" aria-labelledby="signature-title">
+        <p className="eyebrow">The signature pairing · New Orleans tradition</p>
+        <h1 id="signature-title">Coffee <em>&</em><br />Beignets.</h1>
+        <p className="signature-lede">Hot, powdered-sugar beignets. Café du Monde Coffee & Chicory. Two New Orleans classics, served together.</p>
+        <a className="signature-cta" href="/#follow">Find our next pop-up <span aria-hidden="true">↗</span></a>
+        <div className="signature-hero-footer" aria-hidden="true"><span>Hot beignets</span><span>Dark roast & chicory</span><span>New Orleans soul</span></div>
+      </section>
+      <section className="signature-pair" aria-label="What we serve">
+        <div className="signature-pair-copy">
+          <p className="eyebrow">The pairing</p><h2>Powdered sugar.<br />Dark roast.<br /><em>No shortcuts.</em></h2>
+          <p>Our beignets meet the real Café du Monde Coffee & Chicory blend—the recognizable New Orleans 15-ounce can you know. Enjoy the tradition at a Taste of Nawlins pop-up.</p>
+          <p className="signature-disclosure">Café du Monde is the coffee brand we serve, not the sponsor of Taste of Nawlins or Boxing & Beignets.</p>
+        </div>
+        <div className="signature-product" aria-label="Café du Monde Coffee and Chicory product">
+          <div className="signature-product-art" role="img" aria-label="Product image pending: Café du Monde Coffee and Chicory 15 ounce can">
+            <span className="signature-product-top">THE COFFEE WE SERVE</span>
+            <strong>Café du Monde</strong>
+            <span>COFFEE & CHICORY</span>
+            <small>15 OZ. · ORIGINAL NEW ORLEANS BLEND</small>
+          </div>
+          <p className="signature-caption">Actual Café du Monde Coffee & Chicory · 15 oz. can. The supplied product photograph will replace this temporary label before release.</p>
+        </div>
+      </section>
+      <section className="signature-history" id="history">
+        <div><p className="eyebrow">A New Orleans tradition</p><h2>Made to be<br />enjoyed together.</h2></div>
+        <div className="signature-history-body">
+          <p>Coffee and beignets have long shared a table in New Orleans. The city’s dark-roasted coffee and chicory became a distinctive local taste, while beignets—square pieces of fried dough covered in powdered sugar—became a beloved treat.</p>
+          <p>Café du Monde opened its French Market coffee stand in 1862. Its coffee-and-chicory blend, enjoyed black or as café au lait with hot milk, remains part of that tradition. We bring the same pairing to our traveling table.</p>
+          <p className="signature-source">Historical reference: <a href="https://shop.cafedumonde.com/history/" target="_blank" rel="noopener noreferrer">Café du Monde's official history ↗</a></p>
+        </div>
+      </section>
+      <section className="signature-boxing" id="boxing">
+        <p className="eyebrow">From the table to the ring</p><h2>Boxing <em>&</em><br />Beignets.</h2>
+        <p>The signature pairing also gives its name to Boxing & Beignets: conversations with fighters, coaches, and neighbors that bring attention to youth boxing and mentorship in connection with Future Champs. Taste of Nawlins provides the food tradition; the podcast and community purpose have their own story.</p>
+        <a className="signature-cta" href="/#boxing">Explore Boxing & Beignets <span aria-hidden="true">↗</span></a>
+      </section>
+      <section className="signature-faq" id="faq"><div><p className="eyebrow">Good to know</p><h2>Frequently asked<br />questions.</h2></div>
+        <div className="signature-questions">{signatureFAQs.map(({question,answer}) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div>
+      </section>
+      <footer className="signature-end"><p className="eyebrow">Find us around town</p><h2>Come hungry.<br />Leave with a story.</h2><a className="signature-cta" href="/#follow">Follow the kitchen <span aria-hidden="true">↗</span></a><a className="signature-back" href="/">← Back to Taste of Nawlins</a></footer>
+    </main>
+  )
+}
 
 function PreviewForm({ type }) {
   const onSubmit = (event) => {
@@ -58,6 +125,7 @@ function PreviewForm({ type }) {
 }
 
 export default function App() {
+  const isSignaturePage = window.location.pathname.replace(/\\/$/, '') === '/coffee-and-beignets'
   useEffect(() => {
     const nodes = document.querySelectorAll('[data-motion]')
     if (!('IntersectionObserver' in window)) {
@@ -76,12 +144,15 @@ export default function App() {
     return () => observer.disconnect()
   }, [])
 
+  if (isSignaturePage) return <SignaturePage />
+
   return (
     <main>
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Taste of Nawlins home">Taste of Nawlins</a>
         <nav aria-label="Primary navigation">
           <a href="#menu">Menu</a>
+          <a href="/coffee-and-beignets">Coffee & Beignets</a>
           <a href="#catering">Catering</a>
           <a href="#boxing">Boxing & Beignets</a>
         </nav>
@@ -101,6 +172,10 @@ export default function App() {
         <div className="drop-kicker"><span className="eyebrow">Next drop</span><strong>Coming soon</strong></div>
         <div className="drop-meta"><span>Beignets + chicory coffee</span><span>Location announcing soon</span></div>
         <a href="#follow">Follow the kitchen →</a>
+      </section>
+      <section className="signature-home" aria-label="Signature Coffee and Beignets">
+        <div className="signature-home-copy"><p className="eyebrow">The signature pairing</p><h2>Coffee <em>&</em><br />Beignets.</h2><p>Our hot beignets meet Café du Monde Coffee & Chicory—a New Orleans tradition and the heart of Boxing & Beignets.</p><a href="/coffee-and-beignets">Discover the tradition <span aria-hidden="true">↗</span></a></div>
+        <div className="signature-home-stamp" aria-hidden="true"><span>BEIGNETS</span><strong>&</strong><span>CHICORY COFFEE</span></div>
       </section>
       <section className="menu-section" id="menu">
         <div className="section-heading" data-motion="quiet">
@@ -134,8 +209,8 @@ export default function App() {
         <div className="boxing-title" data-motion="quiet"><p className="eyebrow">A recurring community event</p><h2>Boxing<br />& Beignets</h2></div>
         <div className="boxing-copy" data-motion="quiet">
           <h3>Food. Fighters. Mentorship.</h3>
-          <p>Taste of Nawlins supports youth through boxing and mentorship. Boxing & Beignets is the recurring event where the food business and the mission meet through interviews, community partners and fundraising.</p>
-          <div className="inline-links"><a href="#follow">Get the next date</a><a href="#catering">Partner with us</a></div>
+          <p>Boxing & Beignets connects our signature coffee-and-beignets tradition with conversations about boxing, mentorship and the community work of Future Champs. Taste of Nawlins is the food business; Future Champs is a separate organization.</p>
+          <div className="inline-links"><a href="/coffee-and-beignets">Discover Coffee & Beignets</a><a href="#follow">Get the next date</a><a href="#catering">Partner with us</a></div>
         </div>
       </section>
       <section className="catering-section" id="catering">
