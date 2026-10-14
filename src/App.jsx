@@ -6,7 +6,7 @@ import { galleryMedia } from './gallery-media.js'
 const menu = [
   { name: 'Beignets', note: 'Pillowy squares of fried dough, served hot under a generous snowfall of powdered sugar.', price: 'Coming soon' },
   { name: 'Café du Monde’s Original Chicory Coffee', note: 'The original 15 oz. Café du Monde dark-roasted coffee and chicory blend, a New Orleans classic.', price: 'Coming soon' },
-  { name: 'Red Beans', note: 'Slow-simmered red beans with Creole seasoning, warm spice and a rich, savory finish.', price: 'Coming soon' },
+  { name: 'Red Beans & Rice', note: 'Tender red beans slow-simmered with onion, garlic, and Creole seasoning, served over fluffy white rice.', price: 'Coming soon' },
   { name: 'Cornbread', note: 'Golden-edged and tender-crumbed, with a touch of sweetness and a rich, buttery finish.', price: 'Coming soon' },
   { name: 'Cabbage', note: 'Slow-cooked cabbage with onion, garlic and Creole seasoning—tender, savory and full of flavor.', price: 'Coming soon' },
   { name: 'Chicken & Acadia Style Sausage Gumbo', note: 'Chicken and Acadia-style sausage simmered low and slow in a rich, deeply seasoned gumbo.', price: 'Coming soon' },
