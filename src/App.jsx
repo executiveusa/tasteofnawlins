@@ -100,7 +100,7 @@ function GuestGallery() {
     <section className="guest-gallery" id="gallery" aria-labelledby="guest-gallery-title">
       <div className="guest-gallery-heading">
         <p className="eyebrow">At the table</p>
-        <h2 id="guest-gallery-title">The people make<br />the story.</h2>
+        <h2 id="guest-gallery-title">Thank you for being<br />part of our story!</h2>
         <p>From the first bite to the last conversation. Photos from our travels, with room for the short clips and moments still to come.</p>
       </div>
       <div className="guest-gallery-grid">
