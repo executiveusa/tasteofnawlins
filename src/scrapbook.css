@@ -30,6 +30,7 @@
 .scrapbook-photo-button{background:none;border:0;padding:0;display:block;width:100%;cursor:zoom-in}
 .scrapbook-photo-button:focus-visible{outline:3px solid #8a4026;outline-offset:5px}
 .scrapbook-photo-button>img,.scrapbook-video-frame>img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;filter:saturate(.9);background:#dfd0b8}
+.scrapbook-print:nth-child(3) .scrapbook-photo-button>img{object-fit:contain;aspect-ratio:3/4;background:#e8dfd1}
 .scrapbook-video-frame{display:block;position:relative}.scrapbook-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#282019c9;color:white;border:1px solid #ffffff55;display:grid;place-items:center;width:60px;height:60px;border-radius:50%;font-size:19px}
 .scrapbook-print figcaption{display:flex;justify-content:space-between;gap:12px;align-items:center;font:italic 16px/1.5 Georgia,serif;padding:12px 2px 0}
 .scrapbook-number,.scrapbook-clip{font:700 9px system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#80604c;white-space:nowrap}
