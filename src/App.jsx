@@ -247,7 +247,7 @@ export default function App() {
         <div className="boxing-title" data-motion="quiet"><p className="eyebrow">A recurring community event</p><h2>Boxing<br />& Beignets</h2></div>
         <div className="boxing-copy" data-motion="quiet">
           <h3>Food. Fighters. Mentorship.</h3>
-          <p>Boxing & Beignets connects our signature coffee-and-beignets tradition with local conversations about boxing, mentorship and the community work done by local gyms in the Pacific Northwest. To learn more visit our social purpose project <a href="https://futurechampsgym.com/" target="_blank" rel="noopener noreferrer">Future Champs</a>.</p>
+          <p>Boxing & Beignets connects our signature coffee-and-beignets tradition with local conversations about boxing, mentorship and the community work done by local gyms in the Pacific Northwest. To learn more about our social purpose project, Future Champs, <a href="https://futurechampsgym.com/" target="_blank" rel="noopener noreferrer">click here</a>.</p>
           <div className="inline-links"><a href="/coffee-and-beignets">Discover Chicory Coffee & Beignets</a><a href="#follow">Get the next date</a><a href="#catering">Partner with us</a></div>
         </div>
       </section>
