@@ -34,3 +34,19 @@
 @media (max-width: 760px) {
   .hero-image img { object-position: center 43%; }
 }
+
+/* Clear gateway into the independent scrapbook page. */
+.guest-gallery-view-all {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 11px 0;
+  margin: 14px 0 28px;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  font: 700 12px/1.4 system-ui, sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.guest-gallery-view-all:hover { border-bottom-width: 2px; }
+.guest-gallery-view-all:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
