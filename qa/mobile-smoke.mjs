@@ -36,7 +36,7 @@ for (const vp of viewports) {
   const savedMenuHtml = await savedMenu.text()
   if (!savedMenu.ok() || !savedMenuHtml.includes('Café du Monde’s Original Chicory Coffee')) failures.push(`${vp.name}: offline HTML menu inaccessible or missing coffee`)
   if (!savedMenuHtml.includes('Chicory Coffee &amp; Beignets')) failures.push(`${vp.name}: signature pairing name missing from HTML menu`)
-  if (/<img\\b|<video\\b|data:image\\//i.test(savedMenuHtml)) failures.push(`${vp.name}: text-only menu unexpectedly contains imagery`)
+  if (['<img', '<video', 'data:image/'].some(token => savedMenuHtml.toLowerCase().includes(token))) failures.push(`${vp.name}: text-only menu unexpectedly contains imagery`)
   if (!savedMenuHtml.includes('id="toggle-reading"')) failures.push(`${vp.name}: missing full-screen reading control`)
   if (!savedMenuHtml.includes('href="/taste-of-nawlins-menu.html" download=')) failures.push(`${vp.name}: missing HTML download action`)
   if (!savedMenuHtml.includes('prefers-reduced-motion')) failures.push(`${vp.name}: text menu missing reduced-motion treatment`)
