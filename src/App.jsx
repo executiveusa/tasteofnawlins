@@ -42,7 +42,7 @@ function SignaturePage() {
     <main className="signature-page">
       <header className="signature-header">
         <a className="wordmark" href="/" aria-label="Taste of Nawlins home">Taste of Nawlins</a>
-        <nav aria-label="Signature page navigation"><a href="/#menu">Full menu</a><a href="/taste-of-nawlins-menu.html" download>Save menu</a><a href="#history">Our tradition</a><a href="#faq">FAQ</a></nav>
+        <nav aria-label="Signature page navigation"><a href="/taste-of-nawlins-menu.html">Full menu</a><a href="/taste-of-nawlins-menu.html" download>Save menu</a><a href="#history">Our tradition</a><a href="#faq">FAQ</a></nav>
       </header>
       <section className="signature-hero" aria-labelledby="signature-title">
         <p className="eyebrow">The signature pairing · New Orleans tradition</p>
@@ -189,7 +189,7 @@ export default function App() {
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Taste of Nawlins home">Taste of Nawlins</a>
         <nav aria-label="Primary navigation">
-          <a href="#menu">Menu</a>
+          <a href="/taste-of-nawlins-menu.html">Menu</a>
           <a href="/coffee-and-beignets">Chicory Coffee & Beignets</a>
           <a href="#catering">Catering</a>
           <a href="#boxing">Boxing & Beignets</a>
@@ -217,7 +217,7 @@ export default function App() {
       </section>
       <section className="menu-section" id="menu">
         <div className="section-heading" data-motion="quiet">
-          <p className="eyebrow">The menu</p><h2>New Orleans Classics</h2><p>New Orleans favorites, served wherever the kitchen pulls up. Availability and pricing announced before each pop-up.</p><a className="menu-download" href="/taste-of-nawlins-menu.html" download="taste-of-nawlins-menu.html">Save the menu to your phone ↓</a>
+          <p className="eyebrow">The menu</p><h2>New Orleans Classics</h2><p>New Orleans favorites, served wherever the kitchen pulls up. Availability and pricing announced before each pop-up.</p><a className="menu-download" href="/taste-of-nawlins-menu.html">See the full menu ↗</a><a className="menu-download" href="/taste-of-nawlins-menu.html" download="taste-of-nawlins-menu.html">Download menu ↓</a>
         </div>
         <div className="menu-list" data-motion="rows">
           {menu.map((item, index) => (
