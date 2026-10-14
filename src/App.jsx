@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import './photo-quality.css'
 import './signature.css'
 import { galleryMedia } from './gallery-media.js'
+import ScrapbookPage from './ScrapbookPage.jsx'
 
 const menu = [
   { name: 'Beignets', note: 'Pillowy squares of fried dough, served hot under a generous snowfall of powdered sugar.', price: 'Coming soon' },
@@ -101,8 +102,9 @@ function GuestGallery() {
       <div className="guest-gallery-heading">
         <p className="eyebrow">At the table</p>
         <h2 id="guest-gallery-title">Thank you for being<br />part of our story!</h2>
-        <p>From the first bite to the last conversation. Photos from our travels, with room for the short clips and moments still to come.</p>
+        <p>From the first bite to the last conversation. These moments belong to the people who shared them with us.</p>
       </div>
+      <a className="guest-gallery-view-all" href="/gallery">Open our scrapbook — all photographs &amp; film clips ↗</a>
       <div className="guest-gallery-grid">
         {galleryMedia.map((item) => (
           <figure className={`guest-media guest-media-${item.kind}`} key={item.id}>
@@ -164,6 +166,7 @@ function PreviewForm({ type }) {
 
 export default function App() {
   const isSignaturePage = ['/coffee-and-beignets', '/coffee-and-beignets/'].includes(window.location.pathname)
+  const isScrapbookPage = ['/gallery', '/gallery/'].includes(window.location.pathname)
   useEffect(() => {
     const nodes = document.querySelectorAll('[data-motion]')
     if (!('IntersectionObserver' in window)) {
@@ -183,6 +186,7 @@ export default function App() {
   }, [])
 
   if (isSignaturePage) return <SignaturePage />
+  if (isScrapbookPage) return <ScrapbookPage />
 
   return (
     <main>
@@ -191,6 +195,7 @@ export default function App() {
         <nav aria-label="Primary navigation">
           <a href="/taste-of-nawlins-menu.html">Menu</a>
           <a href="/coffee-and-beignets">Chicory Coffee & Beignets</a>
+          <a href="/gallery">Scrapbook</a>
           <a href="#catering">Catering</a>
           <a href="#boxing">Boxing & Beignets</a>
         </nav>
