@@ -52,3 +52,15 @@
 @media(min-width:1000px){.scrapbook-print:hover{transform:rotate(0deg) translateY(-5px)}}
 @media(max-width:650px){.scrapbook-header{padding:18px 5%}.scrapbook-header nav{gap:12px;font-size:10px}.scrapbook-cover{padding:70px 16px 75px}.scrapbook-cover h1{font-size:clamp(57px,13vw,88px)}.scrapbook-album{padding:32px 15px;box-shadow:none}.scrapbook-album:before{inset:8px}.scrapbook-album-top{grid-template-columns:1fr}.scrapbook-album-top>p{justify-self:start;margin:0}.scrapbook-grid{grid-template-columns:1fr;gap:22px;padding:10px 5px 35px}.scrapbook-print:nth-child(n){transform:none;margin-top:0}.scrapbook-print figcaption{font-size:15px}.scrapbook-viewer-controls span{display:none}.scrapbook-viewer{height:95dvh}.scrapbook-footer{flex-direction:column}.scrapbook-postscript{padding:40px 10px}}
 @media(prefers-reduced-motion:reduce){.scrapbook-print{transition:none}.scrapbook-print:hover{transform:none}}
+
+/* Media-safe responsive scrapbook presentation: avoid cropping people or portrait footage. */
+.scrapbook-video-frame{display:block;position:relative;width:100%;background:#e9dfd0}
+.scrapbook-video-frame>img{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:contain;filter:none}
+.scrapbook-viewer-image video{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain}
+.scrapbook-viewer-image{overflow:hidden}
+.scrapbook-intro a{text-underline-offset:4px;overflow-wrap:anywhere}
+@media(max-width:650px){
+  .scrapbook-viewer{min-height:0}
+  .scrapbook-viewer-top{gap:8px}
+  .scrapbook-viewer-image{padding:8px 0}
+}
