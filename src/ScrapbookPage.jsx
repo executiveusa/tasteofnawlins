@@ -96,7 +96,7 @@ export default function ScrapbookPage() {
       <footer className="scrapbook-footer"><span>Taste of Nawlins · New Orleans soul in the Pacific Northwest</span><a href="/">Back to the kitchen ↗</a></footer>
       {activeItem && <div className="scrapbook-viewer-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) close() }}>
         <div className="scrapbook-viewer" role="dialog" aria-modal="true" aria-label={'Scrapbook image viewer: ' + activeItem.caption}>
-          <div className="scrapbook-viewer-top"><span>{active + 1} / {entries.length} · {activeItem.caption}</span><button ref={closeButton} type="button" onClick={close} aria-label="Close viewer">Close ×</button></div>
+          <div className="scrapbook-viewer-top"><span>{activeItem.caption}</span><button ref={closeButton} type="button" onClick={close} aria-label="Close viewer">Close ×</button></div>
           <div className="scrapbook-viewer-image">
             {activeItem.kind === 'video' ? <video key={activeItem.id} controls playsInline autoPlay preload="metadata" poster={activeItem.poster}>
               <source src={activeItem.src} type={activeItem.src.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />
