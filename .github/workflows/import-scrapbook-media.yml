@@ -1,0 +1,85 @@
+name: Import consent-cleared scrapbook media
+on:
+  push:
+    branches:
+      - feature/coffee-beignets-signature
+    paths:
+      - .github/workflows/import-scrapbook-media.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/coffee-beignets-signature
+          persist-credentials: true
+      - name: Install video downloader
+        run: python -m pip install --quiet gdown
+      - name: Download original consent-cleared footage and photos
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .gallery-source public/gallery
+          gdown --id '1a8g2SapUSMcHa8lbPUx862QCaMKGx0JW' -O .gallery-source/first-bites-around-the-table.mp4
+          curl -fLsS --retry 3 'https://v3b.fal.media/files/b/0aae8e84/TDyvJJxWTYUp2xV4RuC4G_uc' -o .gallery-source/a-sweet-first-taste.mp4
+          curl -fLsS --retry 3 'https://v3b.fal.media/files/b/0aae8e81/AfZQrCk46BaUPA1mrDa3T_uc' -o .gallery-source/a-moment-with-beignets.mp4
+          curl -fLsS --retry 3 'https://v3b.fal.media/files/b/0aae8e86/gRGzFx3fye9SnnnCdd5R2_uc' -o .gallery-source/one-more-first-bite.mp4
+          curl -fLsS --retry 3 'https://v3b.fal.media/files/b/0aae8e87/ZOvHjIl_khqUmnZPHqcW8_videoplayback.mp4' -o public/gallery/community-first-bites.mp4
+          curl -fLsS --retry 3 'https://v3b.fal.media/files/b/0aae8e87/UArnzGIOz7To0jjd06LrE_videoplayback1.mp4' -o public/gallery/a-bite-with-friends.mp4
+          curl -fLsS --retry 3 'https://v3b.fal.media/files/b/0aae8e87/A0ZBeE5elSD-fhiZP9Ej4_videoplayback11.mp4' -o public/gallery/around-the-neighborhood.mp4
+          curl -fLsS --retry 3 'https://v3b.fal.media/files/b/0aae8e88/4NHVBRTVIAZ0xgTkoJN-8_videoplayback12.mp4' -o public/gallery/another-neighbor-tastes.mp4
+          curl -fLsS --retry 3 'https://v3b.fal.media/files/b/0aae8e88/Qws2e7jYYadcNwTUIJIHa_IMG_20261003_130752400~2.jpg' -o public/gallery/community-meeting.jpg
+          curl -fLsS --retry 3 'https://v3b.fal.media/files/b/0aae8e89/JhGR5t0pqdjLO4lIKiIiX_IMG_20261003_121830278_HDR.jpg' -o public/gallery/neighbors-outside.jpg
+          curl -fLsS --retry 3 'https://v3b.fal.media/files/b/0aae8e88/Xen0tpNxdsepRReAEXakP_cafe-du-monde-coffee-chicory-can.jpg.webp' -o public/images/cafe-du-monde-coffee-chicory-can.webp
+      - name: Encode web-friendly videos and real-frame posters
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in first-bites-around-the-table a-sweet-first-taste a-moment-with-beignets one-more-first-bite; do
+            ffmpeg -hide_banner -loglevel error -y -i ".gallery-source/$name.mp4" -vf "scale=w=720:h=1280:force_original_aspect_ratio=decrease:force_divisible_by=2" -c:v libx264 -preset veryfast -crf 30 -pix_fmt yuv420p -c:a aac -b:a 96k -movflags +faststart "public/gallery/$name.mp4"
+          done
+          for name in first-bites-around-the-table a-sweet-first-taste a-moment-with-beignets one-more-first-bite community-first-bites a-bite-with-friends around-the-neighborhood another-neighbor-tastes; do
+            ffmpeg -hide_banner -loglevel error -y -ss 1 -i "public/gallery/$name.mp4" -frames:v 1 -vf "scale=w=720:h=1280:force_original_aspect_ratio=decrease:force_divisible_by=2" -q:v 4 "public/gallery/$name.jpg" || ffmpeg -hide_banner -loglevel error -y -i "public/gallery/$name.mp4" -frames:v 1 -q:v 4 "public/gallery/$name.jpg"
+            test -s "public/gallery/$name.jpg"
+          done
+      - name: Publish gallery inventory
+        shell: bash
+        run: |
+          cat > src/gallery-media.js <<'EOF'
+          // Real consent-cleared photos and video clips; keep homepage's four original photos curated separately.
+          export const galleryMedia = [
+            { id: 'counter', kind: 'photo', src: '/images/counter-1440.webp', alt: 'Taste of Nawlins food being handed across a neighborhood counter', caption: 'Across the counter' },
+            { id: 'first-taste', kind: 'photo', src: '/images/first-taste-1440.webp', alt: 'A customer holding a Taste of Nawlins food container', caption: 'First taste' },
+            { id: 'walmart', kind: 'photo', src: '/images/walmart-1440.webp', alt: 'A worker holding a Taste of Nawlins food container', caption: 'Around town' },
+            { id: 'table', kind: 'photo', src: '/images/table-1920.webp', alt: 'People gathered around a table with Taste of Nawlins food', caption: 'At the table' },
+            { id: 'tasting-table', kind: 'video', src: '/gallery/first-bites-around-the-table.mp4', poster: '/gallery/first-bites-around-the-table.jpg', caption: 'Tasting together' },
+            { id: 'sweet-taste', kind: 'video', src: '/gallery/a-sweet-first-taste.mp4', poster: '/gallery/a-sweet-first-taste.jpg', caption: 'A sweet first taste' },
+            { id: 'beignet-moment', kind: 'video', src: '/gallery/a-moment-with-beignets.mp4', poster: '/gallery/a-moment-with-beignets.jpg', caption: 'A moment with beignets' },
+            { id: 'one-more-bite', kind: 'video', src: '/gallery/one-more-first-bite.mp4', poster: '/gallery/one-more-first-bite.jpg', caption: 'One more first bite' },
+            { id: 'community-meeting', kind: 'photo', src: '/gallery/community-meeting.jpg', alt: 'Taste of Nawlins representative posing with a community member outdoors', caption: 'Neighbors we met' },
+            { id: 'neighbors-outside', kind: 'photo', src: '/gallery/neighbors-outside.jpg', alt: 'Four people posing outside a neighborhood storefront', caption: 'Together in the neighborhood' },
+            { id: 'community-first-bites', kind: 'video', src: '/gallery/community-first-bites.mp4', poster: '/gallery/community-first-bites.jpg', caption: 'Community first bites' },
+            { id: 'a-bite-with-friends', kind: 'video', src: '/gallery/a-bite-with-friends.mp4', poster: '/gallery/a-bite-with-friends.jpg', caption: 'A bite with friends' },
+            { id: 'around-the-neighborhood', kind: 'video', src: '/gallery/around-the-neighborhood.mp4', poster: '/gallery/around-the-neighborhood.jpg', caption: 'Around the neighborhood' },
+            { id: 'another-neighbor-tastes', kind: 'video', src: '/gallery/another-neighbor-tastes.mp4', poster: '/gallery/another-neighbor-tastes.jpg', caption: 'Another first taste' },
+          ]
+          EOF
+      - name: Check media, build site and commit on draft branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in first-bites-around-the-table a-sweet-first-taste a-moment-with-beignets one-more-first-bite community-first-bites a-bite-with-friends around-the-neighborhood another-neighbor-tastes; do
+            test -s "public/gallery/$name.mp4"
+            test -s "public/gallery/$name.jpg"
+          done
+          npm ci
+          npm run build
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/gallery-media.js public/gallery public/images/cafe-du-monde-coffee-chicory-can.webp
+          git commit -m "Import eight real scrapbook videos, two community photos and coffee product photo"
+          git push origin HEAD:feature/coffee-beignets-signature
