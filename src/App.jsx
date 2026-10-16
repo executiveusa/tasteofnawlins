@@ -5,12 +5,12 @@ import { galleryMedia } from './gallery-media.js'
 import ScrapbookPage from './ScrapbookPage.jsx'
 
 const menu = [
-  { name: 'Beignets', note: 'Pillowy squares of fried dough, served hot under a generous snowfall of powdered sugar.', price: 'Coming soon' },
-  { name: 'Café du Monde’s Original Chicory Coffee', note: 'The original 15 oz. Café du Monde dark-roasted coffee and chicory blend, a New Orleans classic.', price: 'Coming soon' },
-  { name: 'Red Beans & Rice', note: 'Tender red beans slow-simmered with onion, garlic, and Creole seasoning, served over fluffy white rice.', price: 'Coming soon' },
-  { name: 'Cornbread', note: 'Golden-edged and tender-crumbed, with a touch of sweetness and a rich, buttery finish.', price: 'Coming soon' },
-  { name: 'Cabbage', note: 'Slow-cooked cabbage with onion, garlic and Creole seasoning—tender, savory and full of flavor.', price: 'Coming soon' },
-  { name: 'Chicken & Acadia Style Sausage Gumbo', note: 'Chicken and Acadia-style sausage simmered low and slow in a rich, deeply seasoned gumbo.', price: 'Coming soon' },
+  { name: 'Beignets', note: 'Pillowy squares of fried dough, served hot under a generous snowfall of powdered sugar.' },
+  { name: 'Café du Monde’s Original Chicory Coffee', note: 'The original 15 oz. Café du Monde dark-roasted coffee and chicory blend, a New Orleans classic.' },
+  { name: 'Red Beans & Rice', note: 'Tender red beans slow-simmered with onion, garlic, and Creole seasoning, served over fluffy white rice.' },
+  { name: 'Cornbread', note: 'Golden-edged and tender-crumbed, with a touch of sweetness and a rich, buttery finish.' },
+  { name: 'Cabbage', note: 'Slow-cooked cabbage with onion, garlic and Creole seasoning—tender, savory and full of flavor.' },
+  { name: 'Chicken & Acadia Style Sausage Gumbo', note: 'Chicken and Acadia-style sausage simmered low and slow in a rich, deeply seasoned gumbo.' },
 ]
 
 const photoSet = (name, widths) => widths.map((width) => `/images/${name}-${width}.webp ${width}w`).join(', ')
@@ -229,8 +229,8 @@ export default function App() {
         </div>
       </section>
       <section className="next-drop drop-enter" aria-label="Next service drop">
-        <div className="drop-kicker"><span className="eyebrow">Next drop</span><strong>Coming soon</strong></div>
-        <div className="drop-meta"><span>Beignets + chicory coffee</span><span>Location announcing soon</span></div>
+        <div className="drop-kicker"><span className="eyebrow">Our pop-ups</span><strong>Find us around town</strong></div>
+        <div className="drop-meta"><span>Beignets + chicory coffee</span><span>Follow for locations and service dates</span></div>
         <a href="#follow">Follow the kitchen →</a>
       </section>
       <section className="signature-home" aria-label="Signature Coffee and Beignets">
@@ -239,13 +239,13 @@ export default function App() {
       </section>
       <section className="menu-section" id="menu">
         <div className="section-heading" data-motion="quiet">
-          <p className="eyebrow">The menu</p><h2>New Orleans Classics</h2><p>New Orleans favorites, served wherever the kitchen pulls up. Availability and pricing announced before each pop-up.</p><a className="menu-download" href="/taste-of-nawlins-menu.html">See the full menu ↗</a>
+          <p className="eyebrow">The menu</p><h2>New Orleans Classics</h2><p>New Orleans favorites, served wherever the kitchen pulls up. Ask us about today’s offerings and prices at each pop-up.</p><a className="menu-download" href="/taste-of-nawlins-menu.html">See the full menu ↗</a>
         </div>
         <div className="menu-list" data-motion="rows">
           {menu.map((item, index) => (
             <article className="menu-row" key={item.name} style={{ '--row': index }}>
               <div><h3>{item.name}</h3><p>{item.note}</p></div>
-              <span className="menu-price">{item.price}</span>
+              
             </article>
           ))}
         </div>
