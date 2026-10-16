@@ -50,3 +50,6 @@
 .signature-purpose h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(2.4rem,5.8vw,5.6rem);line-height:1;letter-spacing:-.045em;margin:.5rem 0 1.5rem}
 .signature-purpose .signature-cta{margin-top:1.5rem}
 .signature-purpose .signature-purpose-note{margin-top:1.4rem;font-size:.75rem;max-width:33rem;line-height:1.6;color:rgba(255,249,239,.66)}
+
+/* Real product photograph, not a simulated package */
+.signature-product-photo{display:block;width:min(100%,520px);height:auto;max-height:560px;object-fit:contain;margin-inline:auto;background:#e9dcca}
