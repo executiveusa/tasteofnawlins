@@ -59,13 +59,8 @@ function SignaturePage() {
           <p className="signature-disclosure">Café du Monde is the coffee brand we serve, not the sponsor of Taste of Nawlins or Boxing & Beignets.</p>
         </div>
         <div className="signature-product" aria-label="Café du Monde’s Original Chicory Coffee product">
-          <div className="signature-product-art" role="img" aria-label="Product image pending: Café du Monde’s Original Chicory Coffee 15 ounce can">
-            <span className="signature-product-top">THE COFFEE WE SERVE</span>
-            <strong>Café du Monde</strong>
-            <span>COFFEE & CHICORY</span>
-            <small>15 OZ. · ORIGINAL NEW ORLEANS BLEND</small>
-          </div>
-          <p className="signature-caption">Actual Café du Monde’s Original Chicory Coffee · 15 oz. can. Product photograph pending; this is a temporary illustration, not an actual product photo.</p>
+          <img className="signature-product-photo" src="/images/cafe-du-monde-coffee-chicory-can.webp" alt="Café du Monde Original Coffee and Chicory 15-ounce can" loading="lazy" decoding="async" />
+          <p className="signature-caption">The original Café du Monde coffee-and-chicory blend we serve. Café du Monde is not a sponsor of Taste of Nawlins.</p>
         </div>
       </section>
       <section className="signature-history" id="history">
