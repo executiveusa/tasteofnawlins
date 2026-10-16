@@ -79,7 +79,7 @@ function SignaturePage() {
           <p className="eyebrow">The purpose beyond the plate</p>
           <h3>Good food opens the conversation. Mentorship gives it somewhere to go.</h3>
           <p>Future Champs focuses on youth boxing and mentorship. Taste of Nawlins brings the food; Boxing & Beignets brings people to the table; Future Champs is where visitors can learn about the work with young athletes. Each has a distinct role, connected by the same community.</p>
-          <a className="signature-cta" href="https://futurechampsgym.com/" target="_blank" rel="noopener noreferrer" aria-label="Discover Future Champs youth boxing and mentorship (opens a new website)">Discover Future Champs <span aria-hidden="true">↗</span></a>
+          <a className="signature-cta" href="https://futurechampsgym.org/" target="_blank" rel="noopener noreferrer" aria-label="Discover Future Champs youth boxing and mentorship (opens a new website)">Discover Future Champs <span aria-hidden="true">↗</span></a>
           <p className="signature-purpose-note">Future Champs is a separate organization. Coffee and beignet purchases are not represented as charitable donations.</p>
         </div>
       </section>
@@ -269,7 +269,7 @@ export default function App() {
         <div className="boxing-title" data-motion="quiet"><p className="eyebrow">A recurring community event</p><h2>Boxing<br />& Beignets</h2></div>
         <div className="boxing-copy" data-motion="quiet">
           <h3>Food. Fighters. Mentorship.</h3>
-          <p>Boxing & Beignets connects our signature coffee-and-beignets tradition with local conversations about boxing, mentorship and the community work done by local gyms in the Pacific Northwest. To learn more about our social purpose project, Future Champs, <a href="https://futurechampsgym.com/" target="_blank" rel="noopener noreferrer">click here</a>.</p>
+          <p>Boxing & Beignets connects our signature coffee-and-beignets tradition with local conversations about boxing, mentorship and the community work done by local gyms in the Pacific Northwest. To learn more about our social purpose project, Future Champs, <a href="https://futurechampsgym.org/" target="_blank" rel="noopener noreferrer">click here</a>.</p>
           <div className="inline-links"><a href="/coffee-and-beignets">Discover Chicory Coffee & Beignets</a><a href="#follow">Get the next date</a><a href="#catering">Partner with us</a></div>
         </div>
       </section>
