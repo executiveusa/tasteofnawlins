@@ -148,8 +148,8 @@ function ContactForm({ type }) {
           '',
           'Event details:',
           get('notes'),
-        ].join('\\n')
-      : ['Please add me to your pop-up announcement list.', '', 'Email: ' + get('email')].join('\\n')
+        ].join('\n')
+      : ['Please add me to your pop-up announcement list.', '', 'Email: ' + get('email')].join('\n')
     const url = 'mailto:glen@tasteofnawlins.food?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body)
     setStatus('Your email app should open with a prepared message. Please press Send there to deliver your request.')
     window.location.href = url
