@@ -65,7 +65,7 @@ function SignaturePage() {
             <span>COFFEE & CHICORY</span>
             <small>15 OZ. · ORIGINAL NEW ORLEANS BLEND</small>
           </div>
-          <p className="signature-caption">Actual Café du Monde’s Original Chicory Coffee · 15 oz. can. The supplied product photograph will replace this temporary label before release.</p>
+          <p className="signature-caption">Actual Café du Monde’s Original Chicory Coffee · 15 oz. can. Product photograph pending; this is a temporary illustration, not an actual product photo.</p>
         </div>
       </section>
       <section className="signature-history" id="history">
@@ -106,7 +106,7 @@ function GuestGallery() {
       </div>
       <a className="guest-gallery-view-all" href="/gallery">Open our scrapbook — all photographs &amp; film clips ↗</a>
       <div className="guest-gallery-grid">
-        {galleryMedia.map((item) => (
+        {galleryMedia.filter((item) => item.kind === 'photo' && ['counter', 'first-taste', 'walmart', 'table'].includes(item.id)).map((item) => (
           <figure className={`guest-media guest-media-${item.kind}`} key={item.id}>
             {item.kind === 'video' ? (
               <video controls playsInline preload="none" poster={item.poster} aria-label={item.caption}>
@@ -127,19 +127,40 @@ function GuestGallery() {
   )
 }
 
-function PreviewForm({ type }) {
+function ContactForm({ type }) {
+  const isCatering = type === 'catering'
+  const [status, setStatus] = React.useState('')
   const onSubmit = (event) => {
     event.preventDefault()
-    const box = event.currentTarget.querySelector('[data-preview-message]')
-    if (box) box.textContent = 'Preview only — live storage is connected in a later slice.'
+    const form = event.currentTarget
+    if (!form.reportValidity()) return
+    const data = new FormData(form)
+    const get = (key) => String(data.get(key) || '').trim()
+    const subject = isCatering ? 'Taste of Nawlins — Catering inquiry' : 'Taste of Nawlins — Pop-up updates request'
+    const body = isCatering
+      ? [
+          'Name: ' + get('name'),
+          'Email: ' + get('email'),
+          'Phone: ' + get('phone'),
+          'Event date: ' + get('eventDate'),
+          'Guest count: ' + get('guestCount'),
+          'Pickup or delivery: ' + get('fulfillment'),
+          '',
+          'Event details:',
+          get('notes'),
+        ].join('\\n')
+      : ['Please add me to your pop-up announcement list.', '', 'Email: ' + get('email')].join('\\n')
+    const url = 'mailto:glen@tasteofnawlins.food?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body)
+    setStatus('Your email app should open with a prepared message. Please press Send there to deliver your request.')
+    window.location.href = url
   }
-  if (type === 'email') {
+  if (!isCatering) {
     return (
       <form className="signup-form" onSubmit={onSubmit}>
         <label className="sr-only" htmlFor="email">Email address</label>
-        <input id="email" name="email" type="email" placeholder="Email address" required />
-        <button type="submit">Follow the kitchen</button>
-        <p className="form-note" data-preview-message aria-live="polite">Pop-ups, menu drops and Boxing & Beignets. No spam.</p>
+        <input id="email" name="email" type="email" autoComplete="email" placeholder="Email address" required />
+        <button type="submit">Request pop-up updates</button>
+        <p className="form-note" aria-live="polite">{status || 'Opens a prepared email to our kitchen. No automatic subscription or storage.'}</p>
       </form>
     )
   }
@@ -158,8 +179,9 @@ function PreviewForm({ type }) {
         <label>Pickup or delivery<select name="fulfillment"><option>Not sure yet</option><option>Pickup</option><option>Delivery</option></select></label>
       </div>
       <label>Tell us about the event<textarea name="notes" rows="4" /></label>
-      <button type="submit">Request catering</button>
-      <p className="form-note" data-preview-message aria-live="polite">Preview form — live lead capture is not connected yet.</p>
+      <button type="submit">Prepare catering request</button>
+      <p className="form-note" aria-live="polite">{status || 'This opens a prepared email to Glen. You must press Send in your email app; no request is stored on the website.'}</p>
+      <p className="form-note">Or write directly to <a href="mailto:glen@tasteofnawlins.food?subject=Taste%20of%20Nawlins%20Catering">glen@tasteofnawlins.food</a>.</p>
     </form>
   )
 }
@@ -245,8 +267,8 @@ export default function App() {
       </section>
       <GuestGallery />
       <section className="story-statement" aria-label="Taste of Nawlins story">
-        <p className="eyebrow" data-motion="quiet">Food · people · purpose</p>
-        <blockquote data-motion="statement">Taste of Nawlins is a pop up kitchen with a purpose</blockquote>
+        <p className="eyebrow" data-motion="quiet">Our beginning</p>
+        <blockquote data-motion="statement">It started with a dollar and a dream. Now we get to share the table.</blockquote>
       </section>
       <section className="boxing-section" id="boxing">
         <div className="boxing-title" data-motion="quiet"><p className="eyebrow">A recurring community event</p><h2>Boxing<br />& Beignets</h2></div>
@@ -258,20 +280,20 @@ export default function App() {
       </section>
       <section className="catering-section" id="catering">
         <div className="section-heading compact" data-motion="quiet"><p className="eyebrow">Catering</p><h2>Bring Nawlins<br />to the table.</h2><p>Small gatherings, community events and pop-ups. Tell us what you’re planning.</p></div>
-        <div data-motion="quiet"><PreviewForm type="catering" /></div>
+        <div data-motion="quiet"><ContactForm type="catering" /></div>
       </section>
       <section className="follow-section" id="follow">
         <div data-motion="quiet"><p className="eyebrow">Follow the kitchen</p><h2>Know where we’re<br />cooking next.</h2></div>
-        <div data-motion="quiet"><PreviewForm type="email" /></div>
+        <div data-motion="quiet"><ContactForm type="email" /></div>
       </section>
       <footer className="editorial-footer">
         <div className="footer-topline"><span className="eyebrow">Stay close</span><span className="footer-location">New Orleans soul · Pacific Northwest</span></div>
         <div className="footer-social" aria-label="Social media" data-motion="footer">
-          <a className="social-word social-instagram" href="https://www.instagram.com/" aria-label="Instagram — open Instagram" target="_blank" rel="noopener noreferrer"><span>Instagram</span><b aria-hidden="true">↗</b></a>
-          <a className="social-word social-facebook" href="https://www.facebook.com/r.php" aria-label="Facebook — sign up" target="_blank" rel="noopener noreferrer"><span>Facebook</span><b aria-hidden="true">↗</b></a>
+          <a className="social-word social-instagram" href="https://www.instagram.com/tasteofnawlins.food/" aria-label="Taste of Nawlins on Instagram" target="_blank" rel="noopener noreferrer"><span>Instagram</span><b aria-hidden="true">↗</b></a>
+          <a className="social-word social-facebook" href="mailto:glen@tasteofnawlins.food?subject=Taste%20of%20Nawlins" aria-label="Email Taste of Nawlins"><span>Email the kitchen</span><b aria-hidden="true">↗</b></a>
         </div>
         <div className="footer-signoff"><div><span className="wordmark footer-mark">Taste of Nawlins</span><p>New Orleans food, wherever we pull up.</p></div><a className="back-top" href="#top">Back to top ↗</a></div>
-        <div className="footer-meta-row"><span>Washington social-purpose company in development</span><span>© 2026 Taste of Nawlins</span></div>
+        <div className="footer-meta-row"><span>Pop-up kitchen · Pacific Northwest</span><span>© 2026 Taste of Nawlins</span></div>
       </footer>
     </main>
   )
