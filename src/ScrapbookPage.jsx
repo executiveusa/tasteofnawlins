@@ -56,7 +56,7 @@ export default function ScrapbookPage() {
           <span className="scrapbook-overline">The people, the plates, the places</span>
           <p className="scrapbook-archive">A growing collection · Pacific Northwest</p>
           <h1 id="scrapbook-title">The Nawlins<br /><em>scrapbook.</em></h1>
-          <p className="scrapbook-intro">Taste of New Orleans started with a dollar and a dream. Thanks to your local support and belief in what we started, that vision has now come to life. Each one of you is like family to us, and we are forever grateful for the moments we get to share. This scrapbook is a living record of those moments. Any photos or moments you capture at our events, send to <a href="mailto:info@tasteofnawlins.food">info@tasteofnawlins.food</a>, and we will add them to our collection.</p>
+          <p className="scrapbook-intro">Taste of New Orleans started with a dollar and a dream. Thanks to your local support and belief in what we started, that vision has now come to life. Each one of you is like family to us, and we are forever grateful for the moments we get to share. This scrapbook is a living record of those moments. Any photos or moments you capture at our events, send to <a href="mailto:glen@tasteofnawlins.food">glen@tasteofnawlins.food</a>, and we will add them to our collection.</p>
           <a className="scrapbook-jump" href="#memories">Open the album <span aria-hidden="true">↓</span></a>
         </div>
       </section>
