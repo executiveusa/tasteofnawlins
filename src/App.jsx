@@ -262,8 +262,8 @@ export default function App() {
       </section>
       <GuestGallery />
       <section className="story-statement" aria-label="Taste of Nawlins story">
-        <p className="eyebrow" data-motion="quiet">Our beginning</p>
-        <blockquote data-motion="statement">It started with a dollar and a dream. Now we get to share the table.</blockquote>
+        <p className="eyebrow" data-motion="quiet">Food · people · purpose</p>
+        <blockquote data-motion="statement">Taste of Nawlins is a pop up kitchen with a purpose</blockquote>
       </section>
       <section className="boxing-section" id="boxing">
         <div className="boxing-title" data-motion="quiet"><p className="eyebrow">A recurring community event</p><h2>Boxing<br />& Beignets</h2></div>
