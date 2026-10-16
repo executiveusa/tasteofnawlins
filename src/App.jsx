@@ -43,7 +43,7 @@ function SignaturePage() {
     <main className="signature-page">
       <header className="signature-header">
         <a className="wordmark" href="/" aria-label="Taste of Nawlins home">Taste of Nawlins</a>
-        <nav aria-label="Signature page navigation"><a href="/taste-of-nawlins-menu.html">Full menu</a><a href="/taste-of-nawlins-menu.html" download>Save menu</a><a href="#history">Our tradition</a><a href="#faq">FAQ</a></nav>
+        <nav aria-label="Signature page navigation"><a href="/taste-of-nawlins-menu.html">Full menu</a><a href="#history">Our tradition</a><a href="#faq">FAQ</a></nav>
       </header>
       <section className="signature-hero" aria-labelledby="signature-title">
         <p className="eyebrow">The signature pairing · New Orleans tradition</p>
@@ -104,7 +104,7 @@ function GuestGallery() {
         <h2 id="guest-gallery-title">Thank you for being<br />part of our story!</h2>
         <p>From the first bite to the last conversation. These moments belong to the people who shared them with us.</p>
       </div>
-      <a className="guest-gallery-view-all" href="/gallery">Open our scrapbook — all photographs &amp; film clips ↗</a>
+      <a className="guest-gallery-view-all" href="/gallery">Open the scrapbook ↗</a>
       <div className="guest-gallery-grid">
         {galleryMedia.filter((item) => item.kind === 'photo' && ['counter', 'first-taste', 'walmart', 'table'].includes(item.id)).map((item) => (
           <figure className={`guest-media guest-media-${item.kind}`} key={item.id}>
@@ -244,7 +244,7 @@ export default function App() {
       </section>
       <section className="menu-section" id="menu">
         <div className="section-heading" data-motion="quiet">
-          <p className="eyebrow">The menu</p><h2>New Orleans Classics</h2><p>New Orleans favorites, served wherever the kitchen pulls up. Availability and pricing announced before each pop-up.</p><a className="menu-download" href="/taste-of-nawlins-menu.html">See the full menu ↗</a><a className="menu-download" href="/taste-of-nawlins-menu.html" download="taste-of-nawlins-menu.html">Download menu ↓</a>
+          <p className="eyebrow">The menu</p><h2>New Orleans Classics</h2><p>New Orleans favorites, served wherever the kitchen pulls up. Availability and pricing announced before each pop-up.</p><a className="menu-download" href="/taste-of-nawlins-menu.html">See the full menu ↗</a>
         </div>
         <div className="menu-list" data-motion="rows">
           {menu.map((item, index) => (
