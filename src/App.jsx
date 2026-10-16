@@ -285,7 +285,7 @@ export default function App() {
         <div className="footer-topline"><span className="eyebrow">Stay close</span><span className="footer-location">New Orleans soul · Pacific Northwest</span></div>
         <div className="footer-social" aria-label="Social media" data-motion="footer">
           <a className="social-word social-instagram" href="https://www.instagram.com/tasteofnawlins.food/" aria-label="Taste of Nawlins on Instagram" target="_blank" rel="noopener noreferrer"><span>Instagram</span><b aria-hidden="true">↗</b></a>
-          <a className="social-word social-facebook" href="mailto:glen@tasteofnawlins.food?subject=Taste%20of%20Nawlins" aria-label="Email Taste of Nawlins"><span>Email the kitchen</span><b aria-hidden="true">↗</b></a>
+          <a className="social-word social-facebook" href="https://www.facebook.com/" aria-label="Facebook — official Taste of Nawlins page link pending" target="_blank" rel="noopener noreferrer"><span>Facebook</span><b aria-hidden="true">↗</b></a>
         </div>
         <div className="footer-signoff"><div><span className="wordmark footer-mark">Taste of Nawlins</span><p>New Orleans food, wherever we pull up.</p></div><a className="back-top" href="#top">Back to top ↗</a></div>
         <div className="footer-meta-row"><span>Pop-up kitchen · Pacific Northwest</span><span>© 2026 Taste of Nawlins</span></div>
