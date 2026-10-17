@@ -39,6 +39,20 @@ for (const device of cases) {
       }))
       if (state.overflow > 1) issues.push(id + ': horizontal overflow ' + state.overflow + 'px')
       for (const img of state.images.filter(x=>!x.loaded)) issues.push(id + ': image failed ' + img.src)
+      if (route === '/coffee-and-beignets') {
+        const product = page.locator('.signature-product-photo')
+        await product.scrollIntoViewIfNeeded()
+        try {
+          await product.evaluate(async img => {
+            if (!img.complete) await new Promise((resolve,reject) => {
+              img.addEventListener('load',resolve,{once:true})
+              img.addEventListener('error',()=>reject(new Error('product image load event failed')),{once:true})
+            })
+            if (!img.naturalWidth) throw new Error('zero-width or missing product image')
+            await img.decode()
+          })
+        } catch(error) { issues.push(id + ': product photograph broken: ' + error.message) }
+      }
       await page.screenshot({ path: 'qa-artifacts/' + device.name + '-' + (route === '/' ? 'home' : route.slice(1).replaceAll('/','-')) + '.png', fullPage: false })
       checks.push({id, status: response?.status(), overflow:state.overflow, title: state.title, images:state.images.length})
     } catch (e) {
