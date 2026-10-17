@@ -62,6 +62,21 @@ for (const device of cases) {
   try {
     await page.goto(base + '/', {waitUntil:'networkidle'})
     await page.locator('.story-statement').waitFor({timeout:12000})
+    if (device.width <= 900) {
+      const toggle = page.locator('.mobile-nav-toggle')
+      if (!(await toggle.isVisible())) issues.push(device.name + ': mobile navigation toggle missing')
+      else {
+        await toggle.click()
+        if (await toggle.getAttribute('aria-expanded') !== 'true') issues.push(device.name + ': mobile nav did not expand')
+        const links = page.locator('#primary-navigation a')
+        if (await links.count() !== 5) issues.push(device.name + ': expected five mobile destinations')
+        for (let i = 0; i < await links.count(); i++) {
+          if (!(await links.nth(i).isVisible())) issues.push(device.name + ': mobile destination ' + i + ' hidden')
+        }
+        await page.keyboard.press('Escape')
+        if (await toggle.getAttribute('aria-expanded') !== 'false') issues.push(device.name + ': Escape did not close mobile navigation')
+      }
+    } else if (!(await page.locator('#primary-navigation a').first().isVisible())) issues.push(device.name + ': desktop navigation hidden')
     const brand = page.getByText('Taste of Nawlins is a pop up kitchen with a purpose', {exact:true})
     if (await brand.count() !== 1) issues.push(device.name + ': original brand statement missing')
     const future = page.locator('a[href="https://futurechamps.netlify.app/"]')
