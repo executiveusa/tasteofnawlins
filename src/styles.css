@@ -664,3 +664,14 @@ img { max-width: 100%; display: block; }
   .site-header nav.mobile-nav-open a:focus-visible,
   .site-header nav.mobile-nav-open a:hover { text-decoration: underline; }
 }
+
+/* Make the restaurant name a clear desktop brand anchor. Mobile sizing stays unchanged. */
+@media (min-width: 901px) {
+  .site-header .wordmark {
+    font-size: clamp(1.5rem, 1.85vw, 1.85rem);
+    line-height: 1.1;
+    letter-spacing: -.04em;
+    flex-shrink: 0;
+    text-shadow: 0 1px 8px rgba(0,0,0,.65);
+  }
+}
