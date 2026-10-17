@@ -62,6 +62,20 @@ for (const device of cases) {
   try {
     await page.goto(base + '/', {waitUntil:'networkidle'})
     await page.locator('.story-statement').waitFor({timeout:12000})
+    const logo = page.locator('.site-header .wordmark-logo img')
+    if (!(await logo.isVisible())) issues.push(device.name + ': Fal wordmark hidden')
+    else {
+      const logoCheck = await logo.evaluate(img => ({
+        loaded:img.complete && img.naturalWidth>0,
+        src:img.currentSrc,
+        width:img.getBoundingClientRect().width,
+        overflow:img.getBoundingClientRect().right>innerWidth
+      }))
+      if (!logoCheck.loaded) issues.push(device.name + ': Fal wordmark asset failed to load')
+      if (!logoCheck.src.endsWith('.svg')) issues.push(device.name + ': expected SVG wordmark')
+      if (logoCheck.overflow) issues.push(device.name + ': logo overflows viewport')
+      if (logoCheck.width<85) issues.push(device.name + ': logo too small')
+    }
     if (device.width <= 900) {
       const toggle = page.locator('.mobile-nav-toggle')
       if (!(await toggle.isVisible())) issues.push(device.name + ': mobile navigation toggle missing')
