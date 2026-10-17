@@ -215,7 +215,7 @@ export default function App() {
   return (
     <main>
       <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="Taste of Nawlins home">Taste of Nawlins</a>
+        <a className="wordmark wordmark-logo" href="#top" aria-label="Taste of Nawlins home"><img src="https://v3b.fal.media/files/b/0aaec2f6/WUvPH23Hq_9OMUfA5l-T2_e4rDjGFP.png" width="210" height="140" alt="Taste of Nawlins" decoding="async" /></a>
         <button className="mobile-nav-toggle" type="button" aria-expanded={mobileNavOpen} aria-controls="primary-navigation" onClick={() => setMobileNavOpen((open) => !open)}>
           {mobileNavOpen ? 'Close' : 'Menu'} <span aria-hidden="true">{mobileNavOpen ? '×' : '☰'}</span>
         </button>
