@@ -185,22 +185,21 @@ img { max-width: 100%; display: block; }
 [data-motion='photo'],
 [data-motion='statement'],
 [data-motion='footer'] {
-  opacity: 0;
+  opacity: 1;
 }
-[data-motion='quiet'] { transform: translateY(18px); transition: opacity .6s var(--ease-story), transform .6s var(--ease-story); }
+[data-motion='quiet'] { transform: translateY(12px); transition: opacity .35s var(--ease-story), transform .35s var(--ease-story); }
 [data-motion='quiet'].is-visible { opacity: 1; transform: none; }
 [data-motion='rows'].is-visible .menu-row {
   animation: rowIn .55s var(--ease-story) forwards;
   animation-delay: calc(var(--row) * 80ms);
 }
 [data-motion='photo'] {
-  transform: translateY(34px) rotate(var(--tilt, 0deg));
-  clip-path: inset(8% 0 0 0);
-  transition: opacity .78s var(--ease-story), transform .78s var(--ease-story), clip-path .78s var(--ease-story);
-  transition-delay: calc(var(--photo) * 70ms);
+  transform: translateY(14px) rotate(var(--tilt, 0deg));
+  transition: opacity .4s var(--ease-story), transform .4s var(--ease-story);
+  transition-delay: calc(var(--photo) * 35ms);
 }
 [data-motion='photo'].is-visible { opacity: 1; transform: translateY(0) rotate(var(--tilt, 0deg)); clip-path: inset(0); }
-[data-motion='statement'] { transform: translateY(24px); transition: opacity .7s var(--ease-story), transform .7s var(--ease-story); }
+[data-motion='statement'] { transform: translateY(12px); transition: opacity .35s var(--ease-story), transform .35s var(--ease-story); }
 [data-motion='statement'].is-visible { opacity: 1; transform: none; }
 [data-motion='footer'] { transform: translateY(18px); transition: opacity .7s var(--ease-story), transform .7s var(--ease-story); }
 [data-motion='footer'].is-visible { opacity: 1; transform: none; }
@@ -598,3 +597,82 @@ img { max-width: 100%; display: block; }
   .guest-media:nth-child(3n+1) { grid-column:span 2; }
   .guest-media:nth-child(3n+1) img { aspect-ratio:5/4; }
 }
+
+/* Navigation legibility and complete touch navigation. */
+.site-header nav a {
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .045em;
+  line-height: 1.35;
+  text-shadow: 0 1px 5px rgba(0,0,0,.85), 0 2px 12px rgba(0,0,0,.65);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .35em;
+}
+.site-header nav a:hover,
+.site-header nav a:focus-visible { text-decoration: underline; }
+.mobile-nav-toggle { display: none; }
+@media (max-width: 900px) {
+  .site-header { align-items: flex-start; }
+  .mobile-nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 46px;
+    min-width: 112px;
+    padding: .65rem .9rem;
+    border: 1px solid rgba(255,249,239,.65);
+    background: rgba(23,17,14,.94);
+    color: #fff9ef;
+    border-radius: 3px;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+  .mobile-nav-toggle span { font-size: 1.25rem; line-height: 1; }
+  .site-header nav,
+  .site-header nav:not(.mobile-nav-open) { display: none; }
+  .site-header nav.mobile-nav-open {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    top: calc(100% - .4rem);
+    right: .9rem;
+    left: .9rem;
+    flex-direction: column;
+    gap: 0;
+    padding: .55rem 1rem;
+    background: #211712;
+    border: 1px solid rgba(255,249,239,.25);
+    box-shadow: 0 16px 35px rgba(0,0,0,.35);
+  }
+  .site-header nav.mobile-nav-open a,
+  .site-header nav.mobile-nav-open a:not(:first-child) {
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    padding: .8rem .35rem;
+    font-size: .98rem;
+    line-height: 1.4;
+    letter-spacing: .015em;
+    border-bottom: 1px solid rgba(255,249,239,.18);
+    text-decoration: none;
+  }
+  .site-header nav.mobile-nav-open a:last-child { border-bottom: 0; }
+  .site-header nav.mobile-nav-open a:focus-visible,
+  .site-header nav.mobile-nav-open a:hover { text-decoration: underline; }
+}
+
+/* Make the restaurant name a clear desktop brand anchor. Mobile sizing stays unchanged. */
+@media (min-width: 901px) {
+  .site-header .wordmark {
+    font-size: clamp(1.5rem, 1.85vw, 1.85rem);
+    line-height: 1.1;
+    letter-spacing: -.04em;
+    flex-shrink: 0;
+    text-shadow: 0 1px 8px rgba(0,0,0,.65);
+  }
+}
+
