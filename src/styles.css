@@ -676,9 +676,3 @@ img { max-width: 100%; display: block; }
   }
 }
 
-/* Fal-stacked wordmark, preview only. The artwork is an image pending path-vector validation. */
-.site-header .wordmark-logo { display: block; flex: 0 0 auto; width: clamp(158px, 15vw, 198px); max-width: 31vw; padding: 4px; background: #fff9ef; border-radius: 2px; overflow: hidden; box-shadow: 0 3px 16px rgba(0,0,0,.28); text-shadow: none; }
-.site-header .wordmark-logo img { width: 100%; height: auto; display: block; }
-@media (max-width:900px) {
-  .site-header .wordmark-logo { width: 138px; max-width: 45vw; padding: 3px; }
-}
