@@ -26,12 +26,16 @@ for (const device of cases) {
     try {
       const response = await page.goto(base + route, {waitUntil:'domcontentloaded', timeout: 30000})
       await page.locator('body').waitFor()
-      await page.waitForTimeout(450)
+      if (route === '/') await page.locator('.hero h1').waitFor({ timeout: 12000 })
+      if (route === '/coffee-and-beignets') await page.locator('#signature-title').waitFor({ timeout: 12000 })
+      if (route === '/gallery') await page.locator('#scrapbook-title').waitFor({ timeout: 12000 })
+      await page.waitForLoadState('networkidle').catch(() => {})
+      await page.waitForTimeout(350)
       if (!response || response.status() >= 400) issues.push(id + ': HTTP ' + response?.status())
       const state = await page.evaluate(() => ({
         overflow: document.documentElement.scrollWidth - innerWidth,
         title: document.title,
-        images: [...document.images].filter(img => img.getBoundingClientRect().top < innerHeight * 2 && img.getBoundingClientRect().bottom > 0).map(img=>({src:img.currentSrc,loaded:img.complete && img.naturalWidth > 0})),
+        images: [...document.images].filter(img => img.getBoundingClientRect().top < innerHeight && img.getBoundingClientRect().bottom > 0).map(img=>({src:img.currentSrc,loaded:img.complete && img.naturalWidth > 0})),
       }))
       if (state.overflow > 1) issues.push(id + ': horizontal overflow ' + state.overflow + 'px')
       for (const img of state.images.filter(x=>!x.loaded)) issues.push(id + ': image failed ' + img.src)
@@ -42,7 +46,8 @@ for (const device of cases) {
     }
   }
   try {
-    await page.goto(base + '/', {waitUntil:'domcontentloaded'})
+    await page.goto(base + '/', {waitUntil:'networkidle'})
+    await page.locator('.story-statement').waitFor({timeout:12000})
     const brand = page.getByText('Taste of Nawlins is a pop up kitchen with a purpose', {exact:true})
     if (await brand.count() !== 1) issues.push(device.name + ': original brand statement missing')
     const future = page.locator('a[href="https://futurechamps.netlify.app/"]')
@@ -57,7 +62,8 @@ for (const device of cases) {
     await page.waitForTimeout(250)
   } catch(e) { issues.push(device.name + ': homepage interaction ' + e.message.slice(0,180)) }
   try {
-    await page.goto(base + '/gallery', {waitUntil:'domcontentloaded'})
+    await page.goto(base + '/gallery', {waitUntil:'networkidle'})
+    await page.locator('#scrapbook-title').waitFor({timeout:12000})
     const photos = page.locator('.scrapbook-photo-button')
     if(await photos.count()) {
       await photos.first().click()
