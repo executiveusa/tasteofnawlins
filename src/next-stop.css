@@ -1,0 +1,126 @@
+/* A street-corner notice, not a generic map-app card. */
+.follow-section.follow-with-stop {
+  grid-template-columns: minmax(0, .84fr) minmax(0, 1.16fr);
+  align-items: start;
+  gap: clamp(2.25rem, 6vw, 7rem);
+}
+.follow-with-stop .follow-heading { min-width: 0; }
+.follow-with-stop .follow-heading > p:last-child {
+  color: rgba(28, 21, 17, .65);
+  max-width: 26rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 1.5rem 0 0;
+}
+.follow-with-stop .follow-content { display: grid; gap: clamp(1.8rem, 3vw, 2.7rem); min-width: 0; }
+.follow-with-stop .follow-signup { display: grid; gap: .9rem; border-top: 1px solid var(--rule); padding-top: 1.65rem; }
+.follow-with-stop .follow-signup-title {
+  font: 500 clamp(1.25rem, 2vw, 1.7rem)/1.18 'Fraunces', Georgia, serif;
+  margin: 0;
+  letter-spacing: -.025em;
+}
+.follow-with-stop .signup-form { grid-template-columns: minmax(0, 1fr) auto; }
+.follow-with-stop .signup-form input { min-width: 0; }
+
+.next-stop-card {
+  --stop-cream: #fff4de;
+  --stop-gold: #c99c64;
+  background: #251b15;
+  color: var(--stop-cream);
+  padding: clamp(1.25rem, 3.5vw, 2.65rem);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-top: 5px solid #a44735;
+}
+.next-stop-card::before {
+  content: '';
+  position: absolute;
+  inset: 13px;
+  border: 1px solid rgba(246, 225, 192, .18);
+  pointer-events: none;
+  z-index: -1;
+}
+.next-stop-topline { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem 1.2rem; flex-wrap: wrap; }
+.next-stop-eyebrow, .next-stop-indicator, .next-stop-choose {
+  font: 700 .61rem/1.5 'Libre Franklin', system-ui, sans-serif;
+  letter-spacing: .135em;
+  text-transform: uppercase;
+}
+.next-stop-eyebrow { color: var(--stop-gold); }
+.next-stop-indicator { display: inline-flex; align-items: center; gap: .45rem; color: #ddc9b4; }
+.next-stop-indicator > span { width: 7px; height: 7px; flex: none; border: 1px solid currentColor; border-radius: 50%; }
+.next-stop-card-scheduled .next-stop-indicator > span { background: #d2ab77; border-color: #d2ab77; }
+.next-stop-main { display: grid; grid-template-columns: minmax(0,1fr) 60px; gap: .4rem; align-items: start; margin-top: clamp(1.55rem, 3.5vw, 2.6rem); }
+.next-stop-content { min-width: 0; }
+.next-stop-card h3 {
+  font: 500 clamp(2.5rem, 4.8vw, 4.2rem)/.98 'Fraunces', Georgia, serif;
+  letter-spacing: -.055em;
+  text-wrap: balance;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.next-stop-empty { margin: 1.35rem 0 0; max-width: 31rem; color: #e2cfb9; font-size: .89rem; line-height: 1.7; }
+.next-stop-pin { color: var(--stop-gold); display: grid; justify-items: center; align-content: start; gap: .75rem; opacity: .8; }
+.next-stop-pin svg { max-width: 100%; height: auto; }
+.next-stop-route { width: 2px; height: 78px; background: repeating-linear-gradient(to bottom, currentColor 0 7px, transparent 7px 15px); opacity: .4; }
+.next-stop-date { margin: 1.1rem 0 0; color: #ebce9f; font-weight: 600; font-size: .82rem; line-height: 1.65; }
+.next-stop-address { margin: .9rem 0 0; max-width: 30rem; font: normal 1rem/1.6 'Libre Franklin', system-ui, sans-serif; overflow-wrap: anywhere; }
+.next-stop-detail { margin: .75rem 0 0; font-size: .83rem; line-height: 1.6; color: #e0cdbb; }
+.next-stop-actions { margin-top: clamp(1.65rem, 4vw, 2.6rem); padding-top: 1.25rem; border-top: 1px solid rgba(255,244,222,.22); }
+.next-stop-primary {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; min-height: 56px; padding: .9rem 1.15rem;
+  background: var(--stop-cream); color: #251b15; text-decoration: none;
+  font-size: .81rem; font-weight: 700; letter-spacing: .015em;
+}
+.next-stop-primary span { font-size: 1.4rem; line-height: 1; }
+.next-stop-primary:hover { background: #f0d9b6; }
+.next-stop-primary:focus-visible, .next-stop-alternatives a:focus-visible, .next-stop-pending-link:focus-visible { outline: 2px solid var(--stop-cream); outline-offset: 3px; }
+.next-stop-alternatives { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .65rem; margin-top: 1rem; }
+.next-stop-choose { color: #ccb399; margin-right: .15rem; }
+.next-stop-alternatives a {
+  display: inline-flex; align-items: center; gap: .3rem; min-height: 44px;
+  padding: .65rem .45rem; color: #fff2df; text-decoration-color: rgba(255,242,223,.55);
+  text-underline-offset: .28em; font-size: .75rem; font-weight: 600; white-space: nowrap;
+}
+.next-stop-alternatives a:hover, .next-stop-pending-link:hover { color: #f0cf9f; }
+.next-stop-pending-link {
+  min-height: 48px; display: inline-flex; align-items: center; gap: .8rem;
+  padding: .5rem 0; color: var(--stop-cream); text-decoration: underline;
+  text-underline-offset: .4em; font-size: .82rem; font-weight: 700; line-height: 1.4;
+}
+.next-stop-footnote { margin: .6rem 0 0; font-size: .68rem; line-height: 1.6; color: #baa590; }
+@media (max-width: 900px) {
+  .follow-section.follow-with-stop { gap: 2.4rem; }
+  .next-stop-main { grid-template-columns: minmax(0, 1fr) 42px; }
+  .next-stop-pin svg { width: 40px; }
+  .next-stop-route { height: 45px; }
+}
+@media (max-width: 760px) {
+  .follow-section.follow-with-stop { grid-template-columns: minmax(0, 1fr); gap: 2.15rem; padding-inline: 1.1rem; }
+  .follow-with-stop .follow-heading > p:last-child { margin-top: 1rem; font-size: .92rem; }
+  .follow-with-stop .follow-content { gap: 1.9rem; }
+  .next-stop-card { padding: 1.5rem 1.25rem; }
+  .next-stop-main { margin-top: 1.65rem; grid-template-columns: minmax(0, 1fr) 46px; gap: .5rem; }
+  .next-stop-card h3 { font-size: clamp(2.55rem, 11.5vw, 3.7rem); }
+  .next-stop-date { font-size: .8rem; }
+  .next-stop-address { font-size: .92rem; }
+  .next-stop-empty { font-size: .89rem; }
+  .next-stop-alternatives { gap: .15rem .55rem; }
+  .next-stop-alternatives a { padding: .65rem .3rem; }
+  .follow-with-stop .follow-signup { padding-top: 1.45rem; }
+}
+@media (max-width: 410px) {
+  .next-stop-card { padding: 1.4rem 1.1rem; }
+  .next-stop-card::before { inset: 9px; }
+  .next-stop-eyebrow, .next-stop-indicator { font-size: .56rem; }
+  .next-stop-card h3 { font-size: clamp(2.3rem, 11vw, 3rem); }
+  .next-stop-pin { opacity: .52; }
+  .next-stop-alternatives .next-stop-choose { width: 100%; }
+  .follow-with-stop .signup-form { grid-template-columns: minmax(0, 1fr); }
+  .follow-with-stop .signup-form button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .next-stop-primary, .next-stop-alternatives a { scroll-behavior: auto; transition: none; }
+}
