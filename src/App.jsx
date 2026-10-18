@@ -3,6 +3,8 @@ import './photo-quality.css'
 import './signature.css'
 import { galleryMedia } from './gallery-media.js'
 import ScrapbookPage from './ScrapbookPage.jsx'
+import NextStopCard, { useNextStop } from './NextStopCard.jsx'
+import { readableStopDate } from './next-stop.js'
 
 const menu = [
   { name: 'Beignets', note: 'Pillowy squares of fried dough, served hot under a generous snowfall of powdered sugar.' },
@@ -184,6 +186,7 @@ function ContactForm({ type }) {
 export default function App() {
   const isSignaturePage = ['/coffee-and-beignets', '/coffee-and-beignets/'].includes(window.location.pathname)
   const isScrapbookPage = ['/gallery', '/gallery/'].includes(window.location.pathname)
+  const nextStop = useNextStop(!isSignaturePage && !isScrapbookPage)
   useEffect(() => {
     const nodes = document.querySelectorAll('[data-motion]')
     if (!('IntersectionObserver' in window)) {
@@ -229,9 +232,15 @@ export default function App() {
         </div>
       </section>
       <section className="next-drop drop-enter" aria-label="Next service drop">
-        <div className="drop-kicker"><span className="eyebrow">Our pop-ups</span><strong>Find us around town</strong></div>
-        <div className="drop-meta"><span>Beignets + chicory coffee</span><span>Follow for locations and service dates</span></div>
-        <a href="#follow">Follow the kitchen →</a>
+        <div className="drop-kicker">
+          <span className="eyebrow">{nextStop ? 'Our next stop' : 'Our pop-ups'}</span>
+          <strong>{nextStop ? nextStop.venue : 'Find us around town'}</strong>
+        </div>
+        <div className="drop-meta">
+          <span>{nextStop ? `${readableStopDate(nextStop.date)} · ${nextStop.hours}` : 'Beignets + chicory coffee'}</span>
+          <span>{nextStop ? nextStop.address : 'Follow for locations and service dates'}</span>
+        </div>
+        <a href="#follow">{nextStop ? 'Address & directions →' : 'Follow the kitchen →'}</a>
       </section>
       <section className="signature-home" aria-label="Signature Coffee and Beignets">
         <div className="signature-home-copy"><p className="eyebrow">The signature pairing</p><h2>Chicory Coffee <em>&</em><br />Beignets.</h2><p>Our hot beignets meet Café du Monde’s Original Chicory Coffee—a New Orleans tradition and the heart of Boxing & Beignets.</p><a href="/coffee-and-beignets">Discover the tradition <span aria-hidden="true">↗</span></a></div>
@@ -277,9 +286,19 @@ export default function App() {
         <div className="section-heading compact" data-motion="quiet"><p className="eyebrow">Catering</p><h2>Bring Nawlins<br />to the table.</h2><p>Small gatherings, community events and pop-ups. Tell us what you’re planning.</p></div>
         <div data-motion="quiet"><ContactForm type="catering" /></div>
       </section>
-      <section className="follow-section" id="follow">
-        <div data-motion="quiet"><p className="eyebrow">Follow the kitchen</p><h2>Know where we’re<br />cooking next.</h2></div>
-        <div data-motion="quiet"><ContactForm type="email" /></div>
+      <section className="follow-section follow-with-stop" id="follow" aria-labelledby="follow-heading">
+        <div className="follow-heading" data-motion="quiet">
+          <p className="eyebrow">Follow the kitchen</p>
+          <h2 id="follow-heading">Find us at<br />the next stop.</h2>
+          <p>We travel. The good food comes with us. Check the next confirmed address, then tap the map app you like.</p>
+        </div>
+        <div className="follow-content" data-motion="quiet">
+          <NextStopCard stop={nextStop} />
+          <div className="follow-signup">
+            <h3 className="follow-signup-title">Want to hear about the next drop?</h3>
+            <ContactForm type="email" />
+          </div>
+        </div>
       </section>
       <footer className="editorial-footer">
         <div className="footer-topline"><span className="eyebrow">Stay close</span><span className="footer-location">New Orleans soul · Pacific Northwest</span></div>
