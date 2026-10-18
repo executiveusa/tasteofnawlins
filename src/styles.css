@@ -615,3 +615,24 @@ img { max-width: 100%; display: block; }
 .guest-gallery-intro .guest-gallery-wordmark { display:block; width:clamp(180px,19vw,270px); height:auto; max-width:100%; object-fit:contain; }
 .guest-gallery-intro p { margin:0; line-height:1.7; }
 @media(max-width:760px) { .guest-gallery-intro { justify-self:start; width:100%; } .guest-gallery-intro .guest-gallery-wordmark { width:min(66vw,250px); } }
+
+/* Mobile and tablet tap-area corrections verified against real rendered geometry.
+   These are hit-area changes only; no content or visual identity is replaced. */
+@media (max-width: 900px) {
+  .site-header nav a,
+  .hero-copy .primary-link,
+  .next-drop > a,
+  .inline-links a,
+  .boxing-copy p a,
+  .catering-form .form-note a,
+  .editorial-footer .back-top {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+@media (min-width: 761px) and (max-width: 900px) {
+  .site-header { padding-inline: 1.25rem; gap: 1rem; }
+  .site-header nav { gap: .65rem; }
+  .site-header nav a { font-size: .66rem; padding-inline: .25rem; }
+}
