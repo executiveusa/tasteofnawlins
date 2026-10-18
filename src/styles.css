@@ -598,3 +598,10 @@ img { max-width: 100%; display: block; }
   .guest-media:nth-child(3n+1) { grid-column:span 2; }
   .guest-media:nth-child(3n+1) img { aspect-ratio:5/4; }
 }
+
+/* Approved bottom-left Taste of Nawlins mark: responsive vector lockup. */
+.wordmark-logo { display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:clamp(150px,17vw,220px);max-width:44vw;padding:.26rem .45rem;background:rgba(248,240,226,.97);border-radius:2px;line-height:1;text-decoration:none; }
+.wordmark-logo img,.footer-logo img { display:block;width:100%;height:auto;object-fit:contain; }
+.footer-logo { display:block;width:clamp(205px,28vw,325px);max-width:100%;padding:.35rem;background:#f5eee1;border-radius:2px; }
+@media(max-width:760px){.site-header .wordmark-logo,.signature-header .wordmark-logo{width:clamp(130px,38vw,168px);max-width:none;padding:.12rem .25rem}.footer-logo{width:min(68vw,270px)} }
+@media(max-width:360px){.site-header .wordmark-logo,.signature-header .wordmark-logo{width:132px;max-width:none} }
