@@ -97,7 +97,7 @@ function GuestGallery() {
       <div className="guest-gallery-heading">
         <p className="eyebrow">At the table</p>
         <h2 id="guest-gallery-title">Thank you for being<br />part of our story!</h2>
-        <p>From the first bite to the last conversation. These moments belong to the people who shared them with us.</p>
+        <div className="guest-gallery-intro"><img className="guest-gallery-wordmark" src="/brand/taste-of-nawlins-wordmark.svg" alt="Taste of Nawlins — Pop Up Kitchen" width="764" height="506" loading="lazy" decoding="async" /><p>From the first bite to the last conversation. These moments belong to the people who shared them with us.</p></div>
       </div>
       <a className="guest-gallery-view-all" href="/gallery">Open the scrapbook ↗</a>
       <div className="guest-gallery-grid">
