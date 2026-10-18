@@ -59,7 +59,15 @@ for (const viewport of viewports) {
     const box = await link.boundingBox()
     if (box && (box.height < 44 || box.width < 44)) errors.push(`${viewport.name}: directions link below 44px (${Math.round(box.width)}x${Math.round(box.height)})`)
   }
-  await page.locator('.next-stop-card').scrollIntoViewIfNeeded()
+  await page.locator('.follow-heading').scrollIntoViewIfNeeded()
+  await page.locator('.follow-heading.is-visible').waitFor({ timeout: 20000 })
+  await page.locator('.follow-content').scrollIntoViewIfNeeded()
+  await page.locator('.follow-content.is-visible').waitFor({ timeout: 20000 })
+  await page.waitForTimeout(700)
+  const visibleOpacity = await page.locator('.follow-content').evaluate(
+    (element) => Number(getComputedStyle(element).opacity),
+  )
+  if (visibleOpacity < .99) errors.push(`${viewport.name}: follow widget did not visually reveal`)
   await page.screenshot({ path: `qa-artifacts/next-stop-${viewport.name}.png`, fullPage: viewport.width <= 768 })
   await page.close()
 }
