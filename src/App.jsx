@@ -42,7 +42,7 @@ function SignaturePage() {
   return (
     <main className="signature-page">
       <header className="signature-header">
-        <a className="wordmark" href="/" aria-label="Taste of Nawlins home">Taste of Nawlins</a>
+        <a className="wordmark wordmark-logo" href="/" aria-label="Taste of Nawlins home"><img src="/brand/taste-of-nawlins-wordmark.svg" alt="Taste of Nawlins — Pop Up Kitchen" width="764" height="506" decoding="async" /></a>
         <nav aria-label="Signature page navigation"><a href="/taste-of-nawlins-menu.html">Full menu</a><a href="#history">Our tradition</a><a href="#faq">FAQ</a></nav>
       </header>
       <section className="signature-hero" aria-labelledby="signature-title">
@@ -208,7 +208,7 @@ export default function App() {
   return (
     <main>
       <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="Taste of Nawlins home">Taste of Nawlins</a>
+        <a className="wordmark wordmark-logo" href="#top" aria-label="Taste of Nawlins home"><img src="/brand/taste-of-nawlins-wordmark.svg" alt="Taste of Nawlins — Pop Up Kitchen" width="764" height="506" decoding="async" /></a>
         <nav aria-label="Primary navigation">
           <a href="/taste-of-nawlins-menu.html">Menu</a>
           <a href="/coffee-and-beignets">Chicory Coffee & Beignets</a>
@@ -287,7 +287,7 @@ export default function App() {
           <a className="social-word social-instagram" href="https://www.instagram.com/tasteofnawlins.food/" aria-label="Taste of Nawlins on Instagram" target="_blank" rel="noopener noreferrer"><span>Instagram</span><b aria-hidden="true">↗</b></a>
           <a className="social-word social-facebook" href="https://www.facebook.com/" aria-label="Facebook — official Taste of Nawlins page link pending" target="_blank" rel="noopener noreferrer"><span>Facebook</span><b aria-hidden="true">↗</b></a>
         </div>
-        <div className="footer-signoff"><div><span className="wordmark footer-mark">Taste of Nawlins</span><p>New Orleans food, wherever we pull up.</p></div><a className="back-top" href="#top">Back to top ↗</a></div>
+        <div className="footer-signoff"><div><span className="wordmark footer-mark footer-logo"><img src="/brand/taste-of-nawlins-wordmark.svg" alt="Taste of Nawlins — Pop Up Kitchen" width="764" height="506" decoding="async" /></span><p>New Orleans food, wherever we pull up.</p></div><a className="back-top" href="#top">Back to top ↗</a></div>
         <div className="footer-meta-row"><span>Pop-up kitchen · Pacific Northwest</span><span>© 2026 Taste of Nawlins</span></div>
       </footer>
     </main>
