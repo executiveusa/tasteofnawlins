@@ -2,7 +2,7 @@
 
 **Single source of truth:** `public/next-stop.json`.
 
-The homepage's burgundy announcement strip and **Follow the Kitchen → Next Kitchen Stop** widget read this same file. A published stop shows its venue, service date, hours, address, and navigation links. There is no map provider API key, website geolocation collection, or customer tracking.
+The homepage's burgundy announcement strip and **Find the Kitchen → Pop-up location & directions** widget read this same file. A published stop shows its venue, service date, hours, address, and navigation links. There is no map provider API key, website geolocation collection, or customer tracking.
 
 ## Before a date or address is confirmed
 
@@ -20,7 +20,7 @@ Keep the file at:
 }
 ```
 
-The public site will show **Good food. Next stop soon.** and will **not** show directions.
+The public site will show **Next location not announced** and will **not** show directions.
 
 ## Prepare without editing code
 

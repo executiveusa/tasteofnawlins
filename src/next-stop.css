@@ -124,3 +124,20 @@
 @media (prefers-reduced-motion: reduce) {
   .next-stop-primary, .next-stop-alternatives a { scroll-behavior: auto; transition: none; }
 }
+
+/* Explain the location tool before asking visitors to use it. */
+.follow-with-stop .follow-heading > p:not(.eyebrow) {
+  color: #544538;
+  max-width: 31rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 1.5rem 0 0;
+}
+.next-stop-how { max-width: 31rem; padding-left: 1.25rem; margin: 1.25rem 0 0; color: #544538; line-height: 1.7; font-size: .93rem; }
+.next-stop-how li { padding-left: .25rem; margin: .75rem 0; }
+.next-stop-how strong { color: #251b15; }
+.next-stop-card-pending h3 { font-size: clamp(1.9rem, 3.6vw, 3.1rem); line-height: 1.08; letter-spacing: -.035em; }
+@media (max-width: 760px) {
+  .follow-with-stop .follow-heading > p:not(.eyebrow) { font-size: .92rem; margin-top: 1rem; }
+  .next-stop-how { font-size: .9rem; }
+}
