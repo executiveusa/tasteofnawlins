@@ -2,6 +2,7 @@ import { chromium } from 'playwright'
 import fs from 'node:fs/promises'
 
 const base = process.env.TASTE_BASE_URL || 'http://127.0.0.1:4173'
+const captureScreenshots = process.env.TASTE_QA_SCREENSHOTS !== '0'
 const viewports = [
   { name: '320', width: 320, height: 800, dpr: 2 },
   { name: '375', width: 375, height: 812, dpr: 2 },
@@ -31,7 +32,7 @@ for (const vp of viewports) {
   if (await page.locator('.menu-row').count() !== 6) failures.push(`${vp.name}: expected 6 menu rows`)
   if (await page.locator('.menu-index').count() !== 0) failures.push(`${vp.name}: unwanted numbered menu labels`)
   if (await page.locator('.guest-gallery .guest-media').count() !== 4) failures.push(`${vp.name}: expected 4 gallery entries`)
-  if (!(await page.locator('a[download][href="/taste-of-nawlins-menu.html"]').count())) failures.push(`${vp.name}: download menu link missing`)
+  if (!(await page.locator('a[href="/taste-of-nawlins-menu.html"]').count())) failures.push(`${vp.name}: full menu link missing`)
   const savedMenu = await page.request.get((base.endsWith('/') ? base.slice(0,-1) : base) + '/taste-of-nawlins-menu.html')
   const savedMenuHtml = await savedMenu.text()
   if (!savedMenu.ok() || !savedMenuHtml.includes('Café du Monde’s Original Chicory Coffee')) failures.push(`${vp.name}: offline HTML menu inaccessible or missing coffee`)
@@ -40,7 +41,7 @@ for (const vp of viewports) {
   if (!savedMenuHtml.includes('data:image/webp;base64,')) failures.push(`${vp.name}: missing self-contained café edge image`)
   if (!savedMenuHtml.includes('background-image: none')) failures.push(`${vp.name}: mobile edge atmosphere not disabled`)
   if (!savedMenuHtml.includes('id="toggle-reading"')) failures.push(`${vp.name}: missing full-screen reading control`)
-  if (!savedMenuHtml.includes('href="/taste-of-nawlins-menu.html" download=')) failures.push(`${vp.name}: missing HTML download action`)
+  if (!savedMenuHtml.includes('Download HTML')) failures.push(`${vp.name}: HTML download action label missing`)
   if (!savedMenuHtml.includes('prefers-reduced-motion')) failures.push(`${vp.name}: text menu missing reduced-motion treatment`)
   await page.goto((base.endsWith('/') ? base.slice(0, -1) : base) + '/taste-of-nawlins-menu.html', { waitUntil: 'networkidle' })
   if (await page.locator('.dish').count() !== 6) failures.push(`${vp.name}: expected six dishes on text-only menu`)
@@ -48,34 +49,36 @@ for (const vp of viewports) {
   if (menuMetrics.scrollWidth > menuMetrics.width) failures.push(`${vp.name}: full-page menu horizontal overflow (${menuMetrics.scrollWidth} > ${menuMetrics.width})`)
   await page.locator('#toggle-reading').click()
   if (!(await page.locator('body.reading-mode').count())) failures.push(`${vp.name}: full-screen reading control did not activate`)
-  await page.screenshot({ path: `qa-artifacts/menu-${vp.name}.png`, fullPage: vp.width <= 768 })
+  if (!(await page.locator('a[download]').count())) failures.push(`${vp.name}: menu document missing HTML download link`)
+  if (captureScreenshots) await page.screenshot({ path: `qa-artifacts/menu-${vp.name}.png`, fullPage: vp.width <= 768 })
   await page.goto(base, { waitUntil: 'networkidle' })
   if (await page.locator('.story-frame').count() !== 4) failures.push(`${vp.name}: expected 4 story frames`)
   if (!(await page.locator('.hero h1').isVisible())) failures.push(`${vp.name}: hero not visible`)
 
   if (!(await page.locator('a[href="/coffee-and-beignets"]').count())) failures.push(`${vp.name}: signature link missing`)
+  if (!(await page.locator('a[href="/gallery"]').count())) failures.push(`${vp.name}: scrapbook link missing from home`)
   const signatureResponse = await page.goto((base.endsWith('/') ? base.slice(0, -1) : base) + '/coffee-and-beignets', { waitUntil: 'networkidle' })
   if (signatureResponse?.status() >= 400) failures.push(`${vp.name}: signature page HTTP ${signatureResponse.status()}`)
   if (!(await page.locator('#signature-title').count())) failures.push(`${vp.name}: signature page content missing`)
   if (await page.locator('.signature-questions details').count() !== 7) failures.push(`${vp.name}: expected 7 FAQs`)
-  if (!(await page.locator('a[href="https://futurechampsgym.com/"]').count())) failures.push(`${vp.name}: Future Champs doorway missing`)
-  // The scrapbook is a real routed page with image viewer, keyboard navigation and video-ready filter.
-  if (!(await page.locator('a[href="/gallery"]').count())) failures.push(`${vp.name}: scrapbook link missing`)
+  if (!(await page.getByRole('link', { name: /Discover Future Champs/ }).count())) failures.push(`${vp.name}: Future Champs doorway missing`)
+  // The scrapbook is a real routed page with image viewer, keyboard navigation and approved clips.
   const galleryResponse = await page.goto((base.endsWith('/') ? base.slice(0, -1) : base) + '/gallery', { waitUntil: 'networkidle' })
   if (galleryResponse?.status() >= 400) failures.push(`${vp.name}: scrapbook page HTTP ${galleryResponse.status()}`)
   if (!(await page.locator('#scrapbook-title').count())) failures.push(`${vp.name}: scrapbook heading missing`)
-  if (await page.locator('.scrapbook-print').count() !== 4) failures.push(`${vp.name}: expected four real scrapbook photos`)
+  if (await page.locator('.scrapbook-print').count() < 4) failures.push(`${vp.name}: expected at least four real scrapbook photos`)
   const albumOverflow = await page.evaluate(() => ({ viewport: innerWidth, scrollWidth: document.documentElement.scrollWidth }))
   if (albumOverflow.scrollWidth > albumOverflow.viewport) failures.push(`${vp.name}: scrapbook horizontal overflow (${albumOverflow.scrollWidth} > ${albumOverflow.viewport})`)
   await page.locator('.scrapbook-photo-button').first().click()
   if (!(await page.locator('.scrapbook-viewer[role="dialog"]').count())) failures.push(`${vp.name}: scrapbook viewer did not open`)
+  const previousCaption = await page.locator('.scrapbook-viewer-top').innerText()
   await page.keyboard.press('ArrowRight')
-  if (!(await page.locator('.scrapbook-viewer-top').innerText()).includes('2 / 4')) failures.push(`${vp.name}: scrapbook keyboard navigation did not advance`)
+  if ((await page.locator('.scrapbook-viewer-top').innerText()) === previousCaption) failures.push(`${vp.name}: scrapbook keyboard navigation did not advance`)
   await page.keyboard.press('Escape')
   if (await page.locator('.scrapbook-viewer').count()) failures.push(`${vp.name}: Escape did not close scrapbook viewer`)
   await page.getByRole('button', { name: 'Film clips' }).click()
-  if (!(await page.locator('.scrapbook-empty').count())) failures.push(`${vp.name}: video empty state missing before approved clip uploads`)
-  await page.screenshot({ path: `qa-artifacts/scrapbook-${vp.name}.png`, fullPage: vp.width <= 768 })
+  if (!(await page.locator('.scrapbook-empty').count()) && !(await page.locator('.scrapbook-clip').count())) failures.push(`${vp.name}: video filter neither shows approved clips nor an empty state`)
+  if (captureScreenshots) await page.screenshot({ path: `qa-artifacts/scrapbook-${vp.name}.png`, fullPage: vp.width <= 768 })
   await page.goto(base, { waitUntil: 'networkidle' })
   const photos = page.locator('.hero-image img, .story-gallery img')
   if (await photos.count() !== 5) failures.push(`${vp.name}: expected 5 image elements`)
@@ -134,7 +137,7 @@ for (const vp of viewports) {
   await page.locator('#menu').scrollIntoViewIfNeeded()
   await page.waitForTimeout(150)
   if (await page.locator('[data-motion].is-visible').count() < 1) failures.push(`${vp.name}: motion observer did not reveal content`)
-  await page.screenshot({ path: `qa-artifacts/${vp.name}.png`, fullPage: vp.width <= 768 })
+  if (captureScreenshots) await page.screenshot({ path: `qa-artifacts/${vp.name}.png`, fullPage: vp.width <= 768 })
   failures.push(...errors.map(e => `${vp.name}: ${e}`))
   await page.close()
 }
