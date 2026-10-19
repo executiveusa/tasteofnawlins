@@ -7,14 +7,37 @@ export function useNextStop(enabled = true) {
   useEffect(() => {
     if (!enabled) return undefined
     const controller = new AbortController()
-    fetch('/next-stop.json', { cache: 'no-store', signal: controller.signal })
-      .then((response) => {
+    let candidate = null
+    let loading = false
+    const validate = () => setStop(normalizeNextStop(candidate))
+    const refresh = async () => {
+      // Expire the currently displayed stop even if the network is unavailable.
+      validate()
+      if (loading) return
+      loading = true
+      try {
+        const response = await fetch('/next-stop.json', { cache: 'no-store', signal: controller.signal })
         if (!response.ok) throw new Error('Next-stop data not available')
-        return response.json()
-      })
-      .then((data) => { if (!controller.signal.aborted) setStop(normalizeNextStop(data)) })
-      .catch(() => { if (!controller.signal.aborted) setStop(null) })
-    return () => controller.abort()
+        candidate = await response.json()
+      } catch (_) {
+        candidate = null
+      } finally {
+        loading = false
+        if (!controller.signal.aborted) validate()
+      }
+    }
+    const resume = () => { if (document.visibilityState === 'visible') refresh() }
+    refresh()
+    // Recheck open tabs and refresh changed/cancelled announcements without reload.
+    const interval = window.setInterval(refresh, 60_000)
+    document.addEventListener('visibilitychange', resume)
+    window.addEventListener('focus', refresh)
+    return () => {
+      controller.abort()
+      window.clearInterval(interval)
+      document.removeEventListener('visibilitychange', resume)
+      window.removeEventListener('focus', refresh)
+    }
   }, [enabled])
   return stop
 }

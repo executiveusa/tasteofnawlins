@@ -22,7 +22,21 @@ Keep the file at:
 
 The public site will show **Good food. Next stop soon.** and will **not** show directions.
 
-## Announcing a confirmed kitchen stop
+## Prepare without editing code
+
+Open `/prepare-stop` on your website (available after this release).
+
+1. Enter the confirmed venue, full public address, service date and hours.
+2. Check the existing card preview and each map destination.
+3. Confirm the details and download the announcement file.
+4. Give that file to your authorized website publisher or agent. Ask for a preview before publishing.
+5. Approve only the reviewed announcement, then check the live website.
+
+To remove an announcement, choose **No confirmed stop / remove announcement** and prepare that file instead.
+
+This is a preparation page, not an admin login or publishing backend. Entries stay in the current browser page until downloaded; reloading discards them. Anyone can prepare a file, but only authorized repository/hosting collaborators can publish it. No credentials are requested or stored. The public website remains unchanged until a publisher releases the approved update.
+
+## Publisher instructions for a confirmed kitchen stop
 
 1. Confirm the venue's permission, full street address, and service hours with the organizer.
 2. Open `public/next-stop.json` in GitHub and select **Edit** (pencil).
@@ -56,3 +70,9 @@ With Playwright installed, serve the site or set `TASTE_BASE_URL` to a deployed 
 ## Existing email contact workflow
 
 The existing form beneath the next-stop widget **opens a prepared email** addressed to the Taste of Nawlins mailbox; it is **not** an automatic subscriber database. That behavior is unchanged. Do not claim that subscribing happens automatically until a genuine backend is connected.
+
+## Open-tab expiry and changes
+
+The homepage checks the announcement every minute and when a tab is focused or made visible. A stop expires after its local calendar day, including pages left open overnight. Hours are display text: this does not promise expiry exactly at closing time. A failed refresh falls back to the pending state. Browser background throttling can delay timers; returning to the tab triggers an immediate recheck.
+
+Before releasing, run `node qa/owner-stop-smoke.mjs` as well as the existing next-stop checks. It covers offline expiry across midnight, cancellation refresh, preparation/download, removal, renewed confirmation after edits, six widths and 44px controls.

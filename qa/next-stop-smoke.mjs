@@ -12,6 +12,8 @@ const example = {
   timeZone: 'America/Los_Angeles',
 }
 const viewports = [
+  { name: '375', width: 375, height: 812, userAgent: 'Mozilla/5.0 (iPhone)' },
+  { name: '430', width: 430, height: 932, userAgent: 'Mozilla/5.0 (Android)' },
   { name: '320-android', width: 320, height: 800, userAgent: 'Mozilla/5.0 (Linux; Android 14; Mobile)' },
   { name: '390-ios', width: 390, height: 844, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)' },
   { name: '768', width: 768, height: 1024, userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X)' },
@@ -68,7 +70,7 @@ for (const viewport of viewports) {
     (element) => Number(getComputedStyle(element).opacity),
   )
   if (visibleOpacity < .99) errors.push(`${viewport.name}: follow widget did not visually reveal`)
-  await page.screenshot({ path: `qa-artifacts/next-stop-${viewport.name}.png`, fullPage: viewport.width <= 768 })
+  await page.locator('.next-stop-card').screenshot({ path: `qa-artifacts/next-stop-${viewport.name}.png` })
   await page.close()
 }
 
@@ -81,10 +83,13 @@ await pending.route('**/next-stop.json', (route) => route.fulfill({
 await pending.goto(base, { waitUntil: 'networkidle' })
 if (!(await pending.locator('.next-stop-card-pending').count())) errors.push('Unannounced state did not render')
 if (await pending.locator('.next-stop-actions a[href*="maps"], .next-stop-actions a[href*="waze"], .next-stop-actions a[href^="geo:"]').count()) errors.push('Unannounced state exposed a navigation link')
+await pending.locator('.next-stop-card').scrollIntoViewIfNeeded()
+await pending.locator('.follow-content.is-visible').waitFor()
+await pending.locator('.next-stop-card').screenshot({ path: 'qa-artifacts/next-stop-pending-390.png' })
 await pending.close()
 await browser.close()
 if (errors.length) {
   console.error('NEXT-STOP QA FAILED:\n' + errors.join('\n'))
   process.exit(1)
 }
-console.log('Next-stop QA passed: upcoming stop, Android/iOS/desktop links, 44px targets, responsive overflow, expired/unannounced fallback.')
+console.log('Next-stop QA passed: upcoming stop, Android/iOS/desktop links, 44px targets, responsive overflow, unannounced fallback.')
