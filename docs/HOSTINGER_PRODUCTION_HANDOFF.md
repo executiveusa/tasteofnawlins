@@ -1,5 +1,9 @@
 # Taste of Nawlins — Hostinger Production Handoff
 
+## Current baseline — checked October 19, 2026
+
+Netlify production and GitHub main were verified at `b3978bc2c3070ca2e742c40af3268370fb0f498a` (deploy `6ad542c2cc5940d6990cce1c`). The site lists six menu items. Both forms prepare email to `glen@tasteofnawlins.food`; neither stores submissions. The migration instructions below are historical planning, not evidence that Hostinger production is configured. DNS, email, hosting migration and backend deployment require separate owner authorization. Preserve the approved wordmark and the single `public/next-stop.json` location source.
+
 ## Goal
 Move production from Netlify to Hostinger while keeping GitHub as the canonical source of truth.
 
@@ -30,7 +34,7 @@ Move production from Netlify to Hostinger while keeping GitHub as the canonical 
 7. Use a dedicated Taste of Nawlins mailbox/destination. Do not route leads to social@asc3nd.org or any Future Champs address. If no Taste mailbox exists, stop at that decision point and ask the owner what mailbox name to create (recommended: hello@tasteofnawlins.food or catering@tasteofnawlins.food).
 8. Wire the existing React forms to the Hostinger backend without changing their approved UI.
 9. Test both forms end-to-end with harmless test submissions and verify storage plus email notification.
-10. Verify production on phone and desktop: no horizontal overflow, hero loads, five menu items appear, cabbage copy is current, links work, forms work, HTTPS is valid.
+10. Verify production on phone and desktop: no horizontal overflow, hero loads, six menu items appear, cabbage copy is current, links work, forms work, HTTPS is valid.
 11. Only after Hostinger production passes, make tasteofnawlins.food the canonical production destination.
 12. Keep the Netlify project temporarily as rollback/staging. Do not delete it during migration.
 

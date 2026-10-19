@@ -37,7 +37,8 @@ class AppErrorBoundary extends React.Component {
 
 async function mountApp() {
   try {
-    const { default: App } = await import('./App.jsx')
+    const { default: App } = await (['/prepare-stop', '/prepare-stop/'].includes(window.location.pathname)
+      ? import('./PrepareStopPage.jsx') : import('./App.jsx'))
     createRoot(rootNode).render(
       <AppErrorBoundary>
         <App />

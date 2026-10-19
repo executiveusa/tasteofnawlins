@@ -7,6 +7,8 @@ on:
       - build/collins-first-slice
       - fix/original-photo-quality
       - fix/original-photo-hero-20260906
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -59,6 +61,11 @@ jobs:
             await browser.close();
           })();
           NODE
+      - name: Next-stop unit and browser acceptance
+        run: |
+          node --test qa/next-stop.test.mjs
+          node qa/next-stop-smoke.mjs
+          node qa/owner-stop-smoke.mjs
       - name: Mobile, image and motion smoke test
         run: node qa/mobile-smoke.mjs
       - name: Verify exact production image and browser runtime
