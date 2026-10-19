@@ -28,10 +28,16 @@ GitHub main and published Netlify deployment both verified at `b3978bc2c3070ca2e
 - Live page observed through the shared browser: pending copy and no directions. Actual map app launch, correct driving entrance, iOS Safari and Android Chrome physical-device behavior remain unverified. User-agent simulation checks link selection only.
 - No customer geolocation API, customer account or mandatory app download was added. The destination providers may independently request user location.
 - Gallery has separate pre-existing defects: Google Drive embed is incorrectly sent to a video element, several clips have no posters, external URLs may expire. Do not claim gallery playback or consent records verified.
-- Approved Instagram PNG and vintage source PNG were not present in this repo or found by filename searches. Pixel comparison/circular crop acceptance for that specific PNG remains blocked. No new logo was generated. Public search did not verify the Instagram profile's ownership.
-- PR #9 removes the rejected AI tabletop image. It was rebased locally onto current main without conflict, remains separate/unmerged, and needs updated QA expectations plus visual preview acceptance.
+- Approved Instagram PNG and vintage source PNG were not present in this repo or found by filename searches. Pixel comparison/circular crop acceptance for that specific PNG remains blocked. No new logo was generated. The public Instagram page was observed in the shared browser at https://www.instagram.com/tasteofnawlins.food/: handle tasteofnawlins.food, display name Glen Singleton, website www.tasteofnawlins.food. These details match the business handoff; account control was not tested.
+- PR #9 removes the rejected AI tabletop image. It was rebased onto current main without conflict and its QA now rejects the old image instead of requiring it. Build and focused menu acceptance pass at six widths: six dishes, no image/video/background image, working reading control, no overflow. It remains separate/unmerged pending hosted visual acceptance.
 - No independent reviewer approval or physical-phone acceptance is implied by these author-run tests.
 
 ## Release and rollback
 
 Keep this branch unmerged until the PR's exact-head checks and preview acceptance pass. A build or deploy-ready response alone is insufficient. If approved and released, rollback by restoring the previously verified Netlify deploy `6ad542c2cc5940d6990cce1c` or reverting this bounded PR. For a bad announcement, publish an unannounced JSON through the same approved workflow. No database migration to reverse.
+
+## Hosted preview and brand checks
+
+Location PR #13: https://github.com/executiveusa/tasteofnawlins/pull/13 . Initial source `39200495942bf0b5c3a3577f8a1e42015b9564ee`; Netlify preview deploy `6ad646cdd385bfaa911dabd6`, ready at the same commit. URL: https://deploy-preview-13--tasteofnawlins.netlify.app/prepare-stop . Shared-browser inspection confirms the page, intact logo, initial pending card, labeled owner controls and permission boundary render. The primary release remains DRAFT; hosted QA is queued, not passed.
+
+Approved SVG SHA-256 is unchanged from main: `7b7068782de354276cf31ea09b48671edd46a714d95c7c3c253fab0427028641`. Browser canvas check at 1024×768: all four corners alpha=0; 493637 fully transparent pixels and 292795 painted/partially painted pixels. Size/circle comparison at 32/64/110/320px is included as `wordmark-size-check.webp`. The subtitle is too small at 32px, and circular clipping cuts the outer flourish. This is a QA render of the WEBSITE SVG only, not acceptance of the missing Instagram PNG. No padding or lettering was changed.
