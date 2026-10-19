@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './photo-quality.css'
 import './signature.css'
 import { galleryMedia } from './gallery-media.js'
@@ -184,6 +184,13 @@ function ContactForm({ type }) {
 }
 
 export default function App() {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  useEffect(() => {
+    if (!mobileNavOpen) return undefined
+    const closeOnEscape = (event) => { if (event.key === 'Escape') setMobileNavOpen(false) }
+    document.addEventListener('keydown', closeOnEscape)
+    return () => document.removeEventListener('keydown', closeOnEscape)
+  }, [mobileNavOpen])
   const isSignaturePage = ['/coffee-and-beignets', '/coffee-and-beignets/'].includes(window.location.pathname)
   const isScrapbookPage = ['/gallery', '/gallery/'].includes(window.location.pathname)
   const nextStop = useNextStop(!isSignaturePage && !isScrapbookPage)
@@ -212,12 +219,16 @@ export default function App() {
     <main>
       <header className="site-header">
         <a className="wordmark wordmark-logo" href="#top" aria-label="Taste of Nawlins home"><img src="/brand/taste-of-nawlins-wordmark.svg" alt="Taste of Nawlins — Pop Up Kitchen" width="764" height="506" decoding="async" /></a>
-        <nav aria-label="Primary navigation">
-          <a href="/taste-of-nawlins-menu.html">Menu</a>
-          <a href="/coffee-and-beignets">Chicory Coffee & Beignets</a>
-          <a href="/gallery">Scrapbook</a>
-          <a href="#catering">Catering</a>
-          <a href="#boxing">Boxing & Beignets</a>
+        <button className="mobile-nav-toggle" type="button" aria-expanded={mobileNavOpen} aria-controls="primary-navigation" onClick={() => setMobileNavOpen((open) => !open)}>
+          {mobileNavOpen ? 'Close' : 'Menu'} <span aria-hidden="true">{mobileNavOpen ? '×' : '☰'}</span>
+        </button>
+        <nav id="primary-navigation" className={mobileNavOpen ? 'mobile-nav-open' : ''} aria-label="Primary navigation">
+          <a href="/taste-of-nawlins-menu.html" onClick={() => setMobileNavOpen(false)}>Menu</a>
+          <a href="/coffee-and-beignets" onClick={() => setMobileNavOpen(false)}>Chicory Coffee & Beignets</a>
+          <a href="/gallery" onClick={() => setMobileNavOpen(false)}>Scrapbook</a>
+          <a href="#catering" onClick={() => setMobileNavOpen(false)}>Catering</a>
+          <a href="#boxing" onClick={() => setMobileNavOpen(false)}>Boxing & Beignets</a>
+
         </nav>
       </header>
       <section className="hero" id="top">
