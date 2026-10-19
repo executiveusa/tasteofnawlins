@@ -304,7 +304,7 @@ export default function App() {
           <p>Taste of Nawlins is a traveling pop-up kitchen. This card shows where and when we’re serving next.</p>
           <ol className="next-stop-how">
             <li>Check the venue, service date, hours and street address.</li>
-            <li>Tap <strong>Get directions</strong> or choose Apple Maps, Google Maps or Waze to open navigation.</li>
+            <li>Tap <strong>Take me there</strong> to open directions. If no stop is announced, you can request text alerts and raffle entry.</li>
           </ol>
         </div>
         <div className="follow-content" data-motion="quiet">

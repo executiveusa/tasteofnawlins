@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { normalizeNextStop, readableStopDate, navigationLinks } from './next-stop.js'
 import './next-stop.css'
+import StopAnnouncementDialog from './StopAnnouncementDialog.jsx'
 
 export function useNextStop(enabled = true) {
   const [stop, setStop] = useState(null)
@@ -52,6 +53,9 @@ function PinIcon() {
 }
 
 export default function NextStopCard({ stop }) {
+  const [showAnnouncement, setShowAnnouncement] = useState(false)
+  const takeMeThere = useRef(null)
+  useEffect(() => { if (stop) setShowAnnouncement(false) }, [stop])
   const navigation = stop ? navigationLinks(stop.address,
     typeof navigator === 'undefined' ? '' : navigator.userAgent) : null
 
@@ -74,7 +78,7 @@ export default function NextStopCard({ stop }) {
           ) : (
             <>
               <h3 id="next-stop-title">Next location not announced</h3>
-              <p className="next-stop-empty">We haven’t published our next pop-up yet. Once confirmed, the location and serving details will appear here with a Get directions button.</p>
+              <p className="next-stop-empty">We haven’t published our next pop-up yet. Once confirmed, the location and serving details will appear here. Tap Take me there for updates.</p>
             </>
           )}
         </div>
@@ -85,7 +89,7 @@ export default function NextStopCard({ stop }) {
           <a className="next-stop-primary" href={navigation.suggested}
             target={navigation.suggested.startsWith('geo:') ? undefined : '_blank'}
             rel={navigation.suggested.startsWith('geo:') ? undefined : 'noopener noreferrer'}>
-            Get directions <span aria-hidden="true">↗</span>
+            Take me there <span aria-hidden="true">↗</span>
           </a>
           <div className="next-stop-alternatives" aria-label="Choose your navigation app">
             <span className="next-stop-choose">Or use</span>
@@ -97,6 +101,9 @@ export default function NextStopCard({ stop }) {
         </div>
       ) : (
         <div className="next-stop-actions">
+          <button ref={takeMeThere} type="button" className="next-stop-primary next-stop-invite" aria-haspopup="dialog"
+            onClick={() => setShowAnnouncement(true)}>Take me there <span aria-hidden="true">↗</span></button>
+          <p className="next-stop-footnote">No stop announced? Tap for text alerts and the free-gift raffle request.</p>
           <a className="next-stop-pending-link" href="https://www.instagram.com/tasteofnawlins.food/"
             target="_blank" rel="noopener noreferrer">
             See pop-up announcements on Instagram <span aria-hidden="true">↗</span>
@@ -104,6 +111,7 @@ export default function NextStopCard({ stop }) {
           <p className="next-stop-footnote">Check back here for the next confirmed location.</p>
         </div>
       )}
+      {showAnnouncement && !stop && <StopAnnouncementDialog opener={takeMeThere} onDismiss={() => setShowAnnouncement(false)} />}
     </section>
   )
 }

@@ -66,6 +66,7 @@ jobs:
           node --test qa/next-stop.test.mjs
           node qa/next-stop-smoke.mjs
           node qa/owner-stop-smoke.mjs
+          node qa/stop-invite-smoke.mjs
       - name: Mobile, image and motion smoke test
         run: node qa/mobile-smoke.mjs
       - name: Verify exact production image and browser runtime
