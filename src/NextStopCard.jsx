@@ -59,8 +59,8 @@ export default function NextStopCard({ stop }) {
     <section className={`next-stop-card ${stop ? 'next-stop-card-scheduled' : 'next-stop-card-pending'}`}
       aria-labelledby="next-stop-title">
       <div className="next-stop-topline">
-        <span className="next-stop-eyebrow">The next kitchen stop</span>
-        <span className="next-stop-indicator"><span aria-hidden="true" />{stop ? 'Location announced' : 'Next stop pending'}</span>
+        <span className="next-stop-eyebrow">Pop-up location & directions</span>
+        {stop && <span className="next-stop-indicator"><span aria-hidden="true" />Location announced</span>}
       </div>
       <div className="next-stop-main">
         <div className="next-stop-content">
@@ -73,8 +73,8 @@ export default function NextStopCard({ stop }) {
             </>
           ) : (
             <>
-              <h3 id="next-stop-title">Good food.<br />Next stop soon.</h3>
-              <p className="next-stop-empty">We haven't announced the next location yet. When the address is confirmed, directions will appear right here.</p>
+              <h3 id="next-stop-title">Next location not announced</h3>
+              <p className="next-stop-empty">We haven’t published our next pop-up yet. Once confirmed, the location and serving details will appear here with a Get directions button.</p>
             </>
           )}
         </div>
@@ -99,9 +99,9 @@ export default function NextStopCard({ stop }) {
         <div className="next-stop-actions">
           <a className="next-stop-pending-link" href="https://www.instagram.com/tasteofnawlins.food/"
             target="_blank" rel="noopener noreferrer">
-            Check our Instagram for announcements <span aria-hidden="true">↗</span>
+            See pop-up announcements on Instagram <span aria-hidden="true">↗</span>
           </a>
-          <p className="next-stop-footnote">No address is published until the next stop is confirmed.</p>
+          <p className="next-stop-footnote">Check back here for the next confirmed location.</p>
         </div>
       )}
     </section>

@@ -88,7 +88,7 @@ function SignaturePage() {
       <section className="signature-faq" id="faq"><div><p className="eyebrow">Good to know</p><h2>Frequently asked<br />questions.</h2></div>
         <div className="signature-questions">{signatureFAQs.map(({question,answer}) => <details key={question}><summary>{question}</summary><p>{answer}</p></details>)}</div>
       </section>
-      <footer className="signature-end"><p className="eyebrow">Find us around town</p><h2>Come hungry.<br />Leave with a story.</h2><a className="signature-cta" href="/#follow">Follow the kitchen <span aria-hidden="true">↗</span></a><a className="signature-back" href="/">← Back to Taste of Nawlins</a></footer>
+      <footer className="signature-end"><p className="eyebrow">Find us around town</p><h2>Come hungry.<br />Leave with a story.</h2><a className="signature-cta" href="/#follow">Find our next pop-up <span aria-hidden="true">↗</span></a><a className="signature-back" href="/">← Back to Taste of Nawlins</a></footer>
     </main>
   )
 }
@@ -251,7 +251,7 @@ export default function App() {
           <span>{nextStop ? `${readableStopDate(nextStop.date)} · ${nextStop.hours}` : 'Beignets + chicory coffee'}</span>
           <span>{nextStop ? nextStop.address : 'Follow for locations and service dates'}</span>
         </div>
-        <a href="#follow">{nextStop ? 'Address & directions →' : 'Follow the kitchen →'}</a>
+        <a href="#follow">{nextStop ? 'Address & directions →' : 'Find our next pop-up →'}</a>
       </section>
       <section className="signature-home" aria-label="Signature Coffee and Beignets">
         <div className="signature-home-copy"><p className="eyebrow">The signature pairing</p><h2>Chicory Coffee <em>&</em><br />Beignets.</h2><p>Our hot beignets meet Café du Monde’s Original Chicory Coffee—a New Orleans tradition and the heart of Boxing & Beignets.</p><a href="/coffee-and-beignets">Discover the tradition <span aria-hidden="true">↗</span></a></div>
@@ -299,14 +299,18 @@ export default function App() {
       </section>
       <section className="follow-section follow-with-stop" id="follow" aria-labelledby="follow-heading">
         <div className="follow-heading" data-motion="quiet">
-          <p className="eyebrow">Follow the kitchen</p>
-          <h2 id="follow-heading">Find us at<br />the next stop.</h2>
-          <p>We travel. The good food comes with us. Check the next confirmed address, then tap the map app you like.</p>
+          <p className="eyebrow">Find the kitchen</p>
+          <h2 id="follow-heading">Where to<br />find us next.</h2>
+          <p>Taste of Nawlins is a traveling pop-up kitchen. This card shows where and when we’re serving next.</p>
+          <ol className="next-stop-how">
+            <li>Check the venue, service date, hours and street address.</li>
+            <li>Tap <strong>Get directions</strong> or choose Apple Maps, Google Maps or Waze to open navigation.</li>
+          </ol>
         </div>
         <div className="follow-content" data-motion="quiet">
           <NextStopCard stop={nextStop} />
           <div className="follow-signup">
-            <h3 className="follow-signup-title">Want to hear about the next drop?</h3>
+            <h3 className="follow-signup-title">Want updates on upcoming pop-ups?</h3>
             <ContactForm type="email" />
           </div>
         </div>
