@@ -16,7 +16,7 @@ try {
   offline = true
   await page.clock.fastForward(61_000)
   await page.locator('.next-stop-card-pending').waitFor()
-  assert.equal(await page.locator('.next-stop-primary').count(), 0)
+  assert.equal(await page.locator('a.next-stop-primary').count(), 0)
   assert.ok(!(await page.locator('.next-drop').innerText()).includes('TEST ONLY'))
   await page.close()
   for (const payload of [{ ...sample, date: '2020-01-01' }, { ...sample, address: '' }, { status: 'unannounced' }]) {
@@ -24,7 +24,7 @@ try {
     await p.route('**/next-stop.json', route => route.fulfill({ json: payload }))
     await p.goto(base)
     await p.locator('.next-stop-card-pending').waitFor()
-    assert.equal(await p.locator('.next-stop-primary').count(), 0)
+    assert.equal(await p.locator('a.next-stop-primary').count(), 0)
     await p.close()
   }
   // Live cancellation refreshes both the strip and the card.

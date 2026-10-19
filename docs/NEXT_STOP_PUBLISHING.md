@@ -55,7 +55,7 @@ The file is ordinary JSON without an authenticated admin dashboard. Agents or co
 
 ## Navigation behavior
 
-- Primary **Get directions** action: Android uses an installed maps app through the `geo:` URI (subject to OS handling); iOS uses Apple Maps; other platforms use Google Maps.
+- Primary **Take me there** action: Android uses an installed maps app through the `geo:` URI (subject to OS handling); iOS uses Apple Maps; other platforms use Google Maps.
 - Alternative links are always shown for **Apple Maps**, **Google Maps**, and **Waze** when a confirmed stop is active. Users can choose their preferred navigation app directly.
 - Where an app isn't installed, supported HTTPS links use the provider's web version.
 - The website never reads the visitor's current GPS position. Directions apps independently handle user location according to the user's own permissions.
@@ -76,3 +76,11 @@ The existing form beneath the next-stop widget **opens a prepared email** addres
 The homepage checks the announcement every minute and when a tab is focused or made visible. A stop expires after its local calendar day, including pages left open overnight. Hours are display text: this does not promise expiry exactly at closing time. A failed refresh falls back to the pending state. Browser background throttling can delay timers; returning to the tab triggers an immediate recheck.
 
 Before releasing, run `node qa/owner-stop-smoke.mjs` as well as the existing next-stop checks. It covers offline expiry across midnight, cancellation refresh, preparation/download, removal, renewed confirmation after edits, six widths and 44px controls.
+
+## Take me there: pending-stop popup
+
+When a scheduled stop is active, **Take me there** uses the existing navigation URL. With no active stop, it opens an accessible dialog explaining that the next stop has not been announced. Visitors can independently request text alerts, free-gift raffle entry, or both. Nothing is prechecked. Motion is disabled when reduced motion is requested.
+
+**Current operational boundary:** the form prepares a mailto request to `glen@tasteofnawlins.food`. The visitor must press Send in their email app. It does not store phone numbers, enroll SMS subscribers, send texts or automatically enter a raffle. The kitchen must confirm each request. No drawing date, eligibility, prize value or raffle rules have been invented. Automated SMS and confirmed raffle entry require a connected owner-controlled backend, SMS delivery service, consent records and owner-approved raffle rules before activation.
+
+`node qa/stop-invite-smoke.mjs` verifies conditional actions, six viewport widths, phone validation, separate unselected opt-ins, keyboard containment/restoration, Escape/close, honest request status, 44px controls and reduced motion. Test phone data is reserved fictional data; no email is sent by the test.
