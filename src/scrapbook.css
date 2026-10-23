@@ -64,3 +64,6 @@
   .scrapbook-viewer-top{gap:8px}
   .scrapbook-viewer-image{padding:8px 0}
 }
+
+/* Gallery viewer: keep portrait videos fully visible on desktop (definite grid row so max-height resolves) */
+.scrapbook-viewer-image{grid-template-rows:minmax(0,1fr)}
